@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <property resource="META-INF/application.properties"/>
+
+    <!-- http://logback.qos.ch/manual/configuration.html#LevelChangePropagator -->
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${user.home}/log/DeviceInfo.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover with 30 day history -->
+            <fileNamePattern>${user.home}/log/DeviceInfo.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <!-- pattern>%d{HH:mm:ss} %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern -->
+            <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="EMAIL" class="ch.qos.logback.classic.net.SMTPAppender">
+        <smtpHost>${mail.smtp.host}</smtpHost>
+        <smtpPort>${mail.smtp.port}</smtpPort>
+        <username>${mail.smtp.username}</username>
+        <password>${mail.smtp.password}</password>
+        <ssl>true</ssl>
+        <to>${mail.feedback.address}</to>
+        <from>${mail.feedback.address}</from>
+        <subject>ERROR: %logger{20} - %m</subject>
+        <layout class="ch.qos.logback.classic.html.HTMLLayout"/>
+    </appender>
+
+    <logger name="to.noc.devicefp"                                level="ALL"/>
+    <logger name="to.noc.devicefp.server.service.TcpdumpService"  level="INFO"/>
+
+    <logger name="org.springframework"          level="WARN"/>
+    <logger name="org.springframework.security" level="INFO"/>
+    <logger name="org.hibernate"                level="WARN"/>
+    <!--
+        org.hibernate.SQL will print out the SQL executed, but you need to add
+        org.hibernate.type too to print parameter values (use TRACE or ALL).
+    -->
+    <!--
+    <logger name="org.hibernate.SQL"            level="ALL"/>
+    <logger name="org.hibernate.type"           level="ALL"/>
+    -->
+    <root level="INFO">
+        <!-- appender-ref ref="STDOUT"/ -->
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="EMAIL"/>
+    </root>
+</configuration>

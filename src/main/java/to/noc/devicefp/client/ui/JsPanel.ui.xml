@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (C) 2013, Dmitry Holodov. All rights reserved.
+-->
+<ui:UiBinder    xmlns:ui="urn:ui:com.google.gwt.uibinder"
+                xmlns:g="urn:import:com.google.gwt.user.client.ui"
+                >
+    <ui:style>
+    </ui:style>
+
+    <g:HTMLPanel>
+        <table>            
+            <tr ui:field="userAgentRow">
+                <td>User Agent</td>
+                <td>
+                    <g:Label ui:field="userAgentLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="appNameRow">
+                <td>App Name</td>
+                <td>
+                    <g:Label ui:field="appNameLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="appCodeNameRow">
+                <td>App Code Name</td>
+                <td>
+                    <g:Label ui:field="appCodeNameLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="appVersionRow">
+                <td>App Version</td>
+                <td>
+                    <g:Label ui:field="appVersionLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="appMinorVersionRow">
+                <td>App Minor Version</td>
+                <td>
+                    <g:Label ui:field="appMinorVersionLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="buildIdRow">
+                <td>Build ID</td>
+                <td>
+                    <g:Label ui:field="buildIdLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="platformRow">
+                <td>Platform</td>
+                <td>
+                    <g:Label ui:field="platformLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="cpuClassRow">
+                <td>CPU Class</td>
+                <td>
+                    <g:Label ui:field="cpuClassLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="osCpuRow">
+                <td>OS CPU</td>
+                <td>
+                    <g:Label ui:field="osCpuLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="productRow">
+                <td>Product</td>
+                <td>
+                    <g:Label ui:field="productLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="productSubRow">
+                <td>Product Sub</td>
+                <td>
+                    <g:Label ui:field="productSubLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="vendorRow">
+                <td>Vendor</td>
+                <td>
+                    <g:Label ui:field="vendorLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="vendorSubRow">
+                <td>Vendor Sub</td>
+                <td>
+                    <g:Label ui:field="vendorSubLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="languageRow">
+                <td>Language</td>
+                <td>
+                    <g:Label ui:field="languageLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="userLanguageRow">
+                <td>User Language</td>
+                <td>
+                    <g:Label ui:field="userLanguageLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="browserLanguageRow">
+                <td>Browser Language</td>
+                <td>
+                    <g:Label ui:field="browserLanguageLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="systemLanguageRow">
+                <td>System Language</td>
+                <td>
+                    <g:Label ui:field="systemLanguageLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="doNotTrackRow">
+                <td>Do Not Track</td>
+                <td>
+                    <g:Label ui:field="doNotTrackLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="msDoNotTrackRow">
+                <td>MS Do Not Track</td>
+                <td>
+                    <g:Label ui:field="msDoNotTrackLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="javaRow">
+                <td>Java</td>
+                <td>
+                    <g:Label ui:field="javaLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="geolocationRow">
+                <td>Geolocation</td>
+                <td>
+                    <g:Label ui:field="geolocationLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="cookiesRow">
+                <td>Cookies</td>
+                <td>
+                    <g:Label ui:field="cookiesLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="cookieTestRow">
+                <td>Cookie Test</td>
+                <td>
+                    <g:Label ui:field="cookieTestLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="webStorageRow">
+                <td>Web Storage</td>
+                <td>
+                    <g:Label ui:field="webStorageLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="webStorageTestRow">
+                <td>Web Storage Test</td>
+                <td>
+                    <g:Label ui:field="webStorageTestLabel"/>
+                </td>
+            </tr>
+        </table>
+    </g:HTMLPanel>
+</ui:UiBinder>

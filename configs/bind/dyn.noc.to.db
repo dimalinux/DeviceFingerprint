@@ -1,0 +1,14 @@
+; /var/named/chroot/var/named/dyn.noc.to.db
+
+$TTL 1080
+$ORIGIN dyn.noc.to.
+@       IN      SOA     dyn.noc.to.      dns-admin.noc.to. (
+                        2012052601	; serial number YYMMDDNN
+                        360             ; Refresh
+                        90              ; Retry
+                        10800           ; Expire
+                        1080            ; Min TTL
+			)
+
+                NS      dyn
+*               IN A    50.112.31.179

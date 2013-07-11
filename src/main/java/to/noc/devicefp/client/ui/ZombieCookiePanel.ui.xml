@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (C) 2013, Dmitry Holodov. All rights reserved.
+-->
+<ui:UiBinder    xmlns:ui="urn:ui:com.google.gwt.uibinder"
+                xmlns:g="urn:import:com.google.gwt.user.client.ui"
+                xmlns:df="urn:import:to.noc.devicefp.client.ui"
+                >
+    <ui:style>
+    </ui:style>
+
+    <g:HTMLPanel>
+        <table>
+            <tr>
+                <td>ID</td>
+                <td><g:Label ui:field="idLabel"/></td>
+            </tr>
+            <tr>
+                <td>Inception</td>
+                <td><df:TimeWithSelectableFormat ui:field="inceptionTime"/></td>
+            </tr>
+            <tr ui:field="regularCookieRow">
+                <td>Regular Cookie</td>
+                <td><g:Label ui:field="regularCookieLabel"/></td>
+            </tr>
+            <tr ui:field="etagRequestCookieRow">
+                <td>ETag Request Cookie</td>
+                <td><g:Label ui:field="etagRequestCookieLabel"/></td>
+            </tr>
+            <tr ui:field="etagResponseCookieRow">
+                <td>ETag Reponse Cookie</td>
+                <td><g:Label ui:field="etagResponseCookieLabel"/></td>
+            </tr>
+            <tr ui:field="webStorageCookieRow">
+                <td>Web Storage Cookie</td>
+                <td><g:Label ui:field="webStorageCookieLabel"/></td>
+            </tr>
+            <tr ui:field="flashCookieRow">
+                <td>Flash Cookie</td>
+                <td><g:Label ui:field="flashCookieLabel"/></td>
+            </tr>
+            <tr ui:field="silerlightCookieRow">
+                <td>Silverlight Cookie</td>
+                <td><g:Label ui:field="silerlightCookieLabel"/></td>
+            </tr>
+        </table>
+    </g:HTMLPanel>
+</ui:UiBinder>

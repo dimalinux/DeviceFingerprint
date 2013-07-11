@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <!-- Note: This is logback.xml used during unit tests only -->
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework"          level="WARN"/>
+    <logger name="org.hibernate"                level="WARN"/>
+    <logger name="to.noc.devicefp"            level="ALL"/>
+
+    <!--
+        org.hibernate.SQL will print out the SQL executed, but you need to add
+        org.hibernate.type too to print parameter values (use TRACE or ALL).
+    -->
+    <logger name="org.hibernate.SQL"            level="ALL"/>
+    <logger name="org.hibernate.type"           level="ALL"/>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

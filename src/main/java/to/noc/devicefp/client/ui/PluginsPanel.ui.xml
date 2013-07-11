@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (C) 2013, Dmitry Holodov. All rights reserved.
+-->
+<ui:UiBinder    xmlns:ui="urn:ui:com.google.gwt.uibinder"
+                xmlns:g="urn:import:com.google.gwt.user.client.ui"
+                >
+    <ui:style type="to.noc.devicefp.client.ui.PluginsPanel.Style">
+        
+        .oddPlugin {
+            background-color: #E0EDFE;
+        }
+        
+        .oddPlugin td {
+            border-style: solid;
+            border-color: #E0EDFE;
+        }
+        
+        .pluginsTable {
+            border-collapse: collapse;
+        }
+        
+        .pluginsTable td {
+            padding: 3px;
+        }
+        
+    </ui:style>
+
+    <g:SimplePanel>
+        <g:FlexTable ui:field="table" styleName="{style.pluginsTable}"/>
+    </g:SimplePanel>
+    
+</ui:UiBinder>

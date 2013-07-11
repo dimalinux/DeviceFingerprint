@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <title>Silverlight DeviceInfo Plugin Test</title>
+    <style type="text/css">
+    html, body {
+        height: 100%;
+        overflow: auto;
+    }
+    body {
+        padding: 0;
+        margin: 0;
+    }
+    </style>
+    
+    <script type="text/javascript">
+        function onSilverlightError(sender, args) {
+            var appSource = "";
+            if (sender != null && sender != 0) {
+              appSource = sender.getHost().Source;
+            }
+            
+            var errorType = args.ErrorType;
+            var iErrorCode = args.ErrorCode;
+
+            if (errorType == "ImageError" || errorType == "MediaError") {
+              return;
+            }
+
+            var errMsg = "Unhandled Error in Silverlight Application " +  appSource + "\n" ;
+
+            errMsg += "Code: "+ iErrorCode + "    \n";
+            errMsg += "Category: " + errorType + "       \n";
+            errMsg += "Message: " + args.ErrorMessage + "     \n";
+
+            if (errorType == "ParserError") {
+                errMsg += "File: " + args.xamlFile + "     \n";
+                errMsg += "Line: " + args.lineNumber + "     \n";
+                errMsg += "Position: " + args.charPosition + "     \n";
+            }
+            else if (errorType == "RuntimeError") {           
+                if (args.lineNumber != 0) {
+                    errMsg += "Line: " + args.lineNumber + "     \n";
+                    errMsg += "Position: " +  args.charPosition + "     \n";
+                }
+                errMsg += "MethodName: " + args.methodName + "     \n";
+            }
+
+            throw new Error(errMsg);
+        }
+        function onSilverlightLoad(sender, args) {
+            var slObject = sender.getHost();
+            var slDevInfo = slObject.Content.DeviceInfo;
+            var text = "=== Silverlight info ===\n";           
+            text += "OS Version: " + slDevInfo.OsVersion + "\n";
+            text += "CLR Version: " + slDevInfo.ClrVersion + "\n";
+            text += "Assembly CLR Version: " + slDevInfo.AssemblyClrVersion + "\n";
+            text += "Uptime (ms): " + slDevInfo.SysUptimeMs + "\n";
+            text += "Processor Count: " + slDevInfo.ProcessorCount + "\n";
+            text += "Isolated Storage Enabled: " + slDevInfo.IsolatedStorageEnabled + "\n";
+            text += "Isolated Storage Test: " + slDevInfo.IsolatedStorageTest + "\n";
+            slDevInfo.setCookie(new Date().toString());
+            text += "get/set Cookie to date: " + slDevInfo.getCookie() + "\n";
+
+            text = "<pre>" + text + "</pre>";
+            var info = document.getElementById("info");
+            if ("outerHTML" in info) {
+                info.outerHTML =  text;
+            } else {
+                info.innerHTML = text;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="info">Silverlight plugin has not yet run...</div>
+    <object id="sl" data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="1" height="1" style="float:left">
+        <param name="source" value="DeviceInfo.xap"/>
+        <param name="onError" value="onSilverlightError" />
+        <param name="onLoad" value="onSilverlightLoad" />
+        <param name="background" value="white" />
+        <param name="minRuntimeVersion" value="4.0.50401.0" />
+        <param name="autoUpgrade" value="true" />
+        <param name="enablehtmlaccess" value="true" />
+    </object>
+</body>
+</html>

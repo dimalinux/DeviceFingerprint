@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset=utf-8>
+    <title>Value Dump of JavaScript Objects</title>
+
+    <script type="text/javascript">
+        function load() {
+            var text = "";
+            
+            function dumpFields(obj) {
+                for (var field in obj) {
+                    if(     field === "innerHTML"   || 
+                            field === "outerHTML"   ||
+                            field === "outerText"   ||
+                            field === "innerText"   ||
+                            field === "textContent") {
+                        continue;
+                    }
+                    
+                    var value;
+                    try {
+                        value = obj[field];
+                    } catch (e) {
+                        text += field;
+                        text += "=";
+                        text += "ERROR: " + e + "\n";
+                        continue;
+                    }
+                                    
+                    if (value !== 'undefined') {
+                        text += field;
+                        text += "=";
+                        try {
+                            text += (typeof(value) !== "function") ? value : "function";
+                        } catch (e) {
+                            text += e;
+                            text += "; typeof(value)=";
+                            text += typeof(value);
+                        }
+                        
+                        text += "\n";
+                    }
+                }
+            }
+            
+            text += "\n\n************* screen dump *****************\n\n";
+            dumpFields(screen);
+            
+            text += "\n\n************* 1 inch div  *****************\n\n";
+            var inchWidth = document.getElementById('squareInch').offsetWidth;
+            var inchHeight = document.getElementById('squareInch').offsetHeight;
+            text += "Square Inch Width: " + inchWidth + "px\n";    
+            text += "Square Inch Height: " + inchHeight + "px\n";
+            var screenWidth = window.screen.width / inchWidth;
+            var screenHeight = window.screen.height / inchHeight;
+            text += "Screen Width x Height: " + screenWidth + " x " + screenHeight + "inches\n";
+            text += "Screen Diagnol: " + Math.sqrt(screenHeight * screenHeight + screenWidth * screenWidth).toFixed(1);
+            
+            text += "\n\n************* window dump *****************\n\n";
+            dumpFields(window);
+
+            text += "\n\n************* document dump *****************\n\n";
+            dumpFields(document);
+
+            text += "\n\n************* document.body dump *****************\n\n";
+            dumpFields(document.body);
+
+            text += "\n\n************* document.documentElement dump *****************\n\n";
+            dumpFields(document.documentElement);           
+            
+            text += "\n\n************* history field dump *****************\n\n";
+            dumpFields(history);
+            
+            text += "\n\n************* navigator field dump *****************\n\n";
+            dumpFields(navigator);     
+
+            text += "\n\n************* navigator.plugins *****************\n\n";
+            for(var i = 0; i < navigator.plugins.length; i++) {
+                text += "plugins:";
+                text += "\n\tname: ";
+                text += navigator.plugins[i].name;
+                text += "\n\tversion: ";
+                text += navigator.plugins[i].version;
+                text += "\n\tdescription: ";
+                text += navigator.plugins[i].description;
+                text += "\n\tfilename: ";
+                text += navigator.plugins[i].filename;
+                text += "\n";
+            }
+
+            text += "\n\n************* enabled navigator.mimeTypes *****************\n\n";
+
+            for(i = 0; i < navigator.mimeTypes.length; i++) {
+                var mimeType = navigator.mimeTypes[i];
+                var enabledPlugin = mimeType.enabledPlugin;
+
+                if (enabledPlugin) {
+                    text += "mimeTypes:";
+                    text += "\n\ttype: ";
+                    text += mimeType.type;
+                    text += "\n\tsuffixes: ";
+                    text += mimeType.suffixes;
+                    text += "\n\tdescription: ";
+                    text += mimeType.description;
+                    text += "\n\tenabledPlugin:\n\t\tname: "
+                    text += enabledPlugin.name;
+                    text += "\n\t\tdescription: "
+                    text += enabledPlugin.description;
+                    text += "\n\t\tversion: "
+                    text += enabledPlugin.version;
+                    text += "\n\t\tfilename: "
+                    text += enabledPlugin.filename;
+                    /*
+                    text += "\n\t\tlength: "
+                    text += enabledPlugin.length;
+
+		    There appears to "length" number of
+                    enabledPlugin.X.* references to other elements
+                    in this mimeTypes array. Not going to dump them.
+                    */
+                    text += "\n";
+                }
+            }
+            
+            text = "<pre>" + text + "</pre>";
+            var info = document.getElementById("info");
+            if ("outerHTML" in info) {
+                info.outerHTML =  text;
+            } else {
+                info.innerHTML = text;
+            }            
+        }
+    </script>
+</head>
+<body onload="load()">
+    <div id='squareInch' style='height: 1in; width: 1in; position: absolute; z-index:-1;'></div>
+    <div id="info">Script failed if you see this</div>
+
+</body>
+</html>

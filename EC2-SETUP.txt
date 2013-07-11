@@ -1,0 +1,154 @@
+EC2 Setup (using Amazon's 64-bit Linux AMI)
+===========================================
+
+Update the AMI
+--------------
+% sudo yum update
+
+Optional addons:
+% sudo yum install git elinks
+
+
+Configure port 80
+-----------------
+Our application server will run as a normal user on port 8080, but we'll use
+iptables to make port 80 "an alias" for port 8080:
+% sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8080
+% sudo service iptables save
+
+
+Install and configure MySQL
+---------------------------
+% sudo yum install mysql-server
+% sudo vi /etc/my.cnf
+    add to [mysqld]:
+        character-set-server=utf8
+        collation-server=utf8_general_ci
+% sudo chkconfig --level 2345 mysqld  on
+% sudo service mysqld restart
+% sudo vi /etc/hosts
+    add mysqlhost as additional alias for 127.0.0.1
+
+Items in all-caps below need to be filled in:
+
+% mysql -u root [no password needed the first time]
+mysql> drop database test;
+mysql> create database devicefp;
+mysql> use mysql;
+mysql> update user set password=PASSWORD("ROOT_PASSWORD") where user='root';
+mysql> create user 'USERNAME'@'localhost' identified by 'WEBAPP_PASSWORD';
+mysql> grant all privileges ON devicefp.* TO 'USERNAME'@'localhost';
+mysql> create user 'USERNAME'@'%' identified by 'WEBAPP_PASSWORD';
+mysql> grant all privileges ON devicefp.* TO 'USERNAME'@'%';
+mysql> flush privileges;
+mysql> quit;
+
+
+Install the JDK
+---------------
+% sudo yum install java-1.7.0-openjdk-devel
+
+
+Install Maven
+-------------
+Download Maven and set environment variables in .bashrc:
+% elinks http://mirrors.ibiblio.org/apache/maven/binaries/apache-maven-3.0.5-bin.tar.gz
+% cd ~/bin
+% tar xvfz ~/downloads/apache-maven-3.0.5-bin.tar.gz
+% ln -s apache-maven-3.0.5 maven
+Add these lines to .bashrc:
+   export M2_HOME=$HOME/bin/maven
+   export PATH=$PATH:$M2_HOME/bin
+
+
+Install Webapp Source
+---------------------
+% mkdir ~/log
+% git clone https://github.com/dimalinux/DeviceFingerprint.git
+% cd DeviceFingerprint/src/main/resources/META-INF/
+% cp TEMPLATE_application.properties application.properties
+% vi application.properties
+    [fill in values]
+% cd ~/DeviceFingerprint
+% mvn package
+
+
+Install Jetty
+-------------
+Download latest version 8:
+% elinks http://download.eclipse.org/jetty/
+Install:
+% mkdir bin
+% cd ~/bin
+% tar xvfz ../downloads/jetty-distribution-[version].tar.gz
+% ln -s jetty-distribution-[version] jetty
+% cd jetty
+% rm -rf webapps/test.war contexts/test.xml contexts/test.d/
+
+Add to .bashrc:
+    export JETTY_HOME=$HOME/bin/jetty
+
+Uncommented "etc/jetty-requestlog.xml" in Jetty's start.ini file. Set or add
+the following lines in etc/jetty-requestlog.xml:
+    <Set name="extended">true</Set>
+    <Set name="logServer">true</Set>
+    <Set name="logCookies">true</Set>
+
+Add these two lines to bin/jetty.sh:
+## DeviceFingerprint Addition
+JAVA_OPTIONS+=("-Xms1G" "-Xmx2G" "-XX:MaxPermSize=256M")
+
+[Add info on editing jetty log4j config]
+
+Copy war file over:
+% cp ~/DeviceFingerprint/target/DeviceFingerprint*.war ~/bin/jetty/webapps/DeviceFingerprint.war
+
+Copy contexts over:
+% cp ~/DeviceFingerprint/configs/jetty-contexts/* ~/bin/jetty/contexts/
+
+RedirectToNocTo.xml redirects our static IP to the virtual host name. Edit
+this file after any IP changes.
+
+Edit etc/jetty.xml in the "extra options" section and
+change "sendServerVersion" to false.
+
+
+[restart jetty on reboot]
+% jetty.sh start
+
+
+Installing Bind
+---------------
+sudo yum install bind-chroot
+
+# TODO:  Recreate and do detailed writup on all the steps to get bind working
+# rndc-confgen -a -s 10.248.14.166
+
+% chkconfig --levels 2345 named on
+% /etc/init.d/named start
+
+Note: To avoid installing bind on test machines, you can install dnsmasq and
+put the following line in /etc/dnsmasq.conf, which will wildcard any
+*.dyn.localhost lookup the local loopback:
+address=/dyn.localhost/127.0.0.1
+
+
+#
+#  Allow non-root users in pcap group to run tcpdump:
+#
+% groupadd pcap
+% usermod -a -G pcap ec2-user
+% chgrp pcap /usr/sbin/tcpdump
+% chmod 750 /usr/sbin/tcpdump
+% setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump
+
+
+Bash Aliases
+------------
+alias ls="/bin/ls -rtF"
+alias dir="/bin/ls -artlFh"
+alias mv="/bin/mv -i"
+alias cp="/bin/cp -i"
+alias rm="/bin/rm -i"
+alias nicedump='sudo renice -10 `ps -eaf | grep /usr/sbin/tcpdump | grep -v grep | awk '\''{print $2}'\''`'
+alias cpwar="cp ~/DeviceFingerprint/target/DeviceFingerprint.war ~/bin/jetty/webapps/"

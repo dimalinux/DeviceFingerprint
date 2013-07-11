@@ -1,0 +1,17 @@
+target
+*.orig
+*.iml
+*.ipr
+*.iws
+nb-configuration.xml
+.settings
+.idea
+.DS_Store
+src/main/resources/META-INF/application.properties
+src/main/silverlight/DeviceInfo.v11.suo
+src/main/silverlight/DeviceInfo/DeviceInfo.csproj.user
+src/main/silverlight/DeviceInfo/obj
+src/main/silverlight/DeviceInfo/Bin/Release/nppBackup
+src/main/silverlight/DeviceInfo/Bin/Release/DeviceInfo.dll
+src/main/silverlight/DeviceInfo/Bin/Release/DeviceInfo.pdb
+src/main/silverlight/DeviceInfo/Bin/Release/DeviceInfo.xap

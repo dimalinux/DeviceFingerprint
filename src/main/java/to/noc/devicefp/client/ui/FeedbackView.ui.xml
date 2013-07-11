@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (C) 2013, Dmitry Holodov. All rights reserved.
+-->
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             >
+
+    <ui:style>
+
+        .message {
+            margin-left: 1.5em;
+            margin-top: 1em;
+        }
+
+        .textArea {
+            background-color: #E3E8F3;
+            width: 100%;
+        }
+
+        .textAreaPadding {
+            padding: 1em;
+        }
+
+        .button {
+            margin-left: 1.5em;
+            margin-bottom: 1em;
+        }
+
+    </ui:style>
+
+
+    <g:HTMLPanel>
+        <div class="{style.message}">
+            Your feedback is appreciated!  You can also send me
+            <a href="http://www.google.com/recaptcha/mailhide/d?k=01Q1BGgC8sBWOiNjWHgCT8xg==&amp;c=1d3HOTDsshXPJSdauwlMCjp8i7NhS1vWhCikx8egf5U="
+               onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\07501Q1BGgC8sBWOiNjWHgCT8xg\75\75\46c\0751d3HOTDsshXPJSdauwlMCjp8i7NhS1vWhCikx8egf5U\075'); return false;"
+               title="Show address">email</a>.
+        </div>
+
+        <div class="{style.textAreaPadding}">
+            <g:TextArea
+                ui:field="feedbackArea"
+                addStyleNames="{style.textArea}"
+                enabled="false"
+                visibleLines="18"
+            />
+        </div>
+
+        <g:Button ui:field="send" addStyleNames="{style.button}" enabled="false">
+            Send
+        </g:Button>
+
+    </g:HTMLPanel>
+</ui:UiBinder>

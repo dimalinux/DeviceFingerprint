@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (C) 2013, Dmitry Holodov. All rights reserved.
+-->
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+          
+    <ui:style>        
+        .reloadButton {
+            margin: 1em;
+        }        
+    </ui:style>
+    
+    <g:DialogBox ui:field="dialogBox"
+        autoHide="false"
+        modal="true"
+        glassEnabled="true"
+        animationEnabled="true"
+    >
+       <g:caption>Session Lost</g:caption>
+       <g:Button ui:field="reload" addStyleNames="{style.reloadButton}">Reload Page</g:Button>
+    </g:DialogBox>
+
+</ui:UiBinder>

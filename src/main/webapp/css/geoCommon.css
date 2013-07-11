@@ -1,0 +1,124 @@
+/* Make our other pages use the same starting point that the homepage
+ * has due to GWT's standard.css
+ */
+body, table td, select {
+  font-family: Arial Unicode MS, Arial, sans-serif;
+  font-size: small;
+}
+pre {
+  font-family: "courier new", courier;
+  font-size: small;
+}
+body {
+  color: black;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+  background: #fff;
+  direction: ltr;
+  overflow-y: scroll; /* addition, not from standard.css */
+}
+a, a:visited, a:hover {
+  color: #0000AA;
+}
+/* end homogenization with GWT's standard.css */
+
+h1 {
+    font-size: x-large;
+}
+h2 {
+    font-size: medium;
+}
+
+#banner {
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 0.5em;
+    background-color: #2100FA;
+    text-align: center;
+    overflow: auto;
+}
+
+#bannerTitle {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    color: white;
+    text-shadow: 2px 2px 6px black;
+    font-weight: bold;
+}
+
+#helpButton {
+    display: block;
+    float: right;
+}
+
+#helpPopup {
+    z-index: 100;
+    position: absolute;
+
+    display: none;
+
+    max-width: 40em;
+    right: 2em;
+    left: 2em;
+    top: 1.5em;
+
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+
+    border: 3px solid black;
+
+    background-color: white;
+
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+}
+
+#helpPopup p, #helpPopup ol {
+    text-align: left;
+    font-size: large;
+}
+
+#helpPopupClose {
+    font-size: x-large;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.errorMessage {
+    width: 20em;
+    color: red;
+    border: 1px solid red;
+    display: block;
+    margin: 1em auto;
+    padding: 1em;
+}
+
+body > footer {
+    text-align: center;
+}
+
+ul.breadcrumbs {
+    list-style: none;
+    display: table;
+    table-layout: fixed;
+    width: 80%;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+}
+
+ul.breadcrumbs li {
+    display: table-cell;
+    text-align: center;
+}
+

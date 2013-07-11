@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (C) 2013, Dmitry Holodov. All rights reserved.
+-->
+<ui:UiBinder    xmlns:ui="urn:ui:com.google.gwt.uibinder"
+                xmlns:g="urn:import:com.google.gwt.user.client.ui"
+                >
+    <ui:style>
+    </ui:style>
+
+    <g:HTMLPanel>
+        <table>            
+            <tr>
+                <td>OS Version</td>
+                <td><g:Label ui:field="osVersionLabel"/></td>
+            </tr>                            
+            <tr>
+                <td>CLR Version</td>
+                <td><g:Label ui:field="clrVersionLabel"/></td>
+            </tr>
+            <tr>
+                <td>Processor Cores</td>
+                <td><g:Label ui:field="processorCoresLabel"/></td>
+            </tr>                            
+            <tr>
+                <td>Tickcount</td>
+                <td><g:Label ui:field="tickCountLabel"/></td>
+            </tr>       
+            <tr>
+                <td>Isolated Storage</td>
+                <td><g:Label ui:field="isolatedStorageEnabledLabel"/></td>
+            </tr>              
+            <tr>
+                <td>Isolated Storage Test</td>
+                <td><g:Label ui:field="isolatedStorageTestLabel"/></td>
+            </tr>                        
+        </table>                 
+    </g:HTMLPanel>
+</ui:UiBinder>

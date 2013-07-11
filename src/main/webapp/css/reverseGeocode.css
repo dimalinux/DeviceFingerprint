@@ -1,0 +1,97 @@
+body {
+    margin: 0.5em 1em;
+}
+
+#mapCanvas {
+    height: 100%;
+    border: 1px solid black;
+    resize: none;
+    z-index: 10;
+}
+
+#extendableDiv {
+    padding-bottom: 12px;
+    height: 20em;
+    resize: vertical;
+    overflow: hidden;
+    z-index: -1;
+}
+
+#inputs {
+    width: 100%;
+    text-align: center;
+}
+
+#reverseGeocode {
+    text-align: center;
+    padding-top: 1em;
+    width: 100%;
+}
+
+#reverseGeocode table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1em;
+    border: none;
+    border-bottom: 1px solid blue;
+    border-collapse: collapse;
+}
+
+#reverseGeocode td {
+    border: 1px solid blue;
+    text-align: center;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+}
+
+#reverseGeocode td.label {
+    background: #d3d3d3;
+}
+
+#reverseGeocode td.type:only-child {
+    border-top: none;
+    border-bottom: none;
+}
+
+#reverseGeocode td.type {
+    border-bottom: none;
+}
+
+#reverseGeocode td.interResultSpace {
+    border-left: none;
+    border-right: none;
+    padding-top: 1em;
+}
+
+.resultHeader {
+    text-align: center;
+    background-color: blue;
+    font-size: large;
+    color: #EEEE00;
+    font-weight: bold;
+}
+
+.decodeError {
+    font-size: large;
+    color: red;
+    font-weight: bold;
+}
+
+.infoWindowTable, .redInfoWindowTable {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.infoWindowTable {
+    color: blue;
+}
+
+.redInfoWindowTable {
+    color: red;
+}
+
+.infoWindowTable td, .redInfoWindowTable td {
+    text-align: center;
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<Configure class="org.eclipse.jetty.server.handler.MovedContextHandler">
+  <Set name="contextPath">/</Set>
+  <Set name="newContextURL">http://noc.to</Set>
+  <Set name="permanent">true</Set>
+  <Set name="discardPathInfo">false</Set>
+  <Set name="discardQuery">false</Set>
+
+  <Set name="virtualHosts">
+     <Array type="String">
+        <Item>ip-10-248-14-166.us-west-2.compute.internal</Item>
+        <Item>10.248.14.166</Item>
+        <Item>ec2-50-112-31-179.us-west-2.compute.amazonaws.com</Item>
+        <Item>50.112.242.166</Item>
+        <Item>www.noc.to</Item>
+     </Array>
+  </Set>
+</Configure>

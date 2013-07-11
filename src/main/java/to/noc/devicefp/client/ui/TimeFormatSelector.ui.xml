@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (C) 2013, Dmitry Holodov. All rights reserved.
+-->
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>       
+    <ui:style type="to.noc.devicefp.client.ui.TimeFormatSelector.Style">       
+        .popup {
+            padding: 0;
+            box-shadow: 3px 3px 3px;
+            border: solid 1px grey;
+            padding: 0;
+        }
+
+        .menuItem {
+            border: solid 1px grey;
+            text-align: center;
+            padding: 0.2em;
+            margin: 0.3em;
+        }
+
+        .selectedMenuItem, .selectedMenuItem.menuItem:hover {
+            color: white;
+            background-color: #2100FA;
+        }
+
+        .menuItem:hover {
+            background-color: #E0EDFE;
+            color: black;
+        }      
+    </ui:style>
+    
+    <g:PopupPanel ui:field="popupPanel" addStyleNames="{style.popup}" autoHideEnabled="true">
+        <g:HTMLPanel>
+            <g:Label ui:field="utcSelect" addStyleNames="{style.menuItem}">
+                UTC
+            </g:Label>
+            <g:Label ui:field="deviceTzSelect" addStyleNames="{style.menuItem}">
+                Device Timezone
+            </g:Label>
+            <g:Label ui:field="currentLocaleSelect" addStyleNames="{style.menuItem}">
+                Current Locale
+            </g:Label>
+            <g:Label ui:field="deltaSelect" visible="false" addStyleNames="{style.menuItem}">
+                Time Delta
+            </g:Label>
+        </g:HTMLPanel>
+    </g:PopupPanel>
+</ui:UiBinder>

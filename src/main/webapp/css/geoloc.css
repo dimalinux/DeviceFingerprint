@@ -1,0 +1,119 @@
+body {
+    text-align: center;
+    font-family: arial, sans-serif;
+}
+
+#outerDiv {
+    margin: 0.5em 1em;
+    min-width: 300px;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+#outlineDiv {
+    border-left:   1px solid #0025FA;
+    border-right:  1px solid #0025FA;
+    border-bottom: 1px solid #0025FA;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+#noGeolocation {
+    display: none;
+}
+
+#submitGeoLocParams {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#elapsedTime {
+    font-family: Monaco, Menlo, 'Andale Mono', 'Lucida Console', monospace;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    font-size: xx-large;
+}
+
+.jsCodeSection {
+    display: inline-block;
+    text-align: left;
+    background-color: #ffffe0;
+    vertical-align: middle;
+    margin-left: 1em;
+    padding: 0.5em 1em 1em 1em;
+}
+
+.sectionHeader {
+    text-align: center;
+    margin-bottom: 1em;
+    color: #555555;
+}
+
+.jsCode {
+    white-space: pre;
+    font-family: Fixed, monospace;
+}
+
+#outputSection {
+    display: none;  /* hidden until geolocation requested */
+    border-top: solid black 2px;
+    padding-top: 1em;
+    margin-top: 1em;
+}
+
+#inputTable, #resultsTable {
+    text-align: left;
+    display: inline-table;
+    vertical-align: middle;
+}
+
+#inputTable th, #resultsTable th {
+    padding-right: 0.3em;
+}
+
+#inputTable input, #resultsTable td {
+    color: #14206d;
+}
+
+.spacerRow {
+    height:0.5em;
+}
+
+#mapCanvas {
+    height: 100%;
+    border: 1px solid black;
+    resize: none;
+    z-index: 10;
+}
+
+#extendableDiv {
+    margin-top: 1em;
+    padding-bottom: 12px;
+    height: 20em;
+    resize: vertical;
+    overflow: hidden;
+    z-index: -1;
+}
+
+#innerBody {
+    margin: 1em;
+}
+
+.infoWindowTable, .redInfoWindowTable {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.infoWindowTable {
+    color: blue;
+}
+
+.redInfoWindowTable {
+    color: red;
+}
+
+.positionSuccessOnly {}
+.positionErrorOnly {}
+.positionInput {}

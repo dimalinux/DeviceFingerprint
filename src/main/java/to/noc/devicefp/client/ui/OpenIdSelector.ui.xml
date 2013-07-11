@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (C) 2013, Dmitry Holodov. All rights reserved.
+-->
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <ui:image field='googleLogo' src="google.gif"/>
+    <ui:image field='yahooLogo'  src="yahoo.gif"/>
+
+    <ui:style>
+        @sprite .googleButton {
+            gwt-image: 'googleLogo';
+        }
+
+        @sprite .yahooButton {
+            gwt-image: 'yahooLogo';
+        }
+
+        .googleButton, .yahooButton {
+            background-position:center;
+            width: 95px;
+            height: 40px;
+        }
+
+        .cancelButton {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #openIdImageTable caption {
+            text-align:left;
+            padding-left: 4px;
+        }
+    </ui:style>
+
+    <g:DialogBox ui:field="dialogBox"
+        autoHide="true"
+        modal="true"
+        glassEnabled="true"
+        animationEnabled="true"
+    >
+       <g:caption>OpenId Login</g:caption>
+        <g:HTMLPanel>
+
+            <form id="loginForm" method="POST">
+
+                <table id="openIdImageTable">
+                    <caption>
+                        You will be redirected to the selected OpenId provider
+                        for authentication.
+                    </caption>
+                    <tr>
+                        <td>
+                            <g:Button ui:field="google" addStyleNames="{style.googleButton}" />
+                        </td>
+                        <td>
+                            <g:Button ui:field="yahoo" addStyleNames="{style.yahooButton}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <g:CheckBox
+                                name="remember-me"
+                                value="true"
+                                formValue="on"
+                                text="Remember">
+                            </g:CheckBox>
+                        </td>
+                        <td>
+                            <g:Button ui:field="cancelButton" addStyleNames="{style.cancelButton}">
+                                Cancel
+                            </g:Button>
+                        </td>
+                    </tr>
+                </table>
+
+                <g:RadioButton
+                    ui:field="googleRadioSelect"
+                    name="openid_identifier"
+                    formValue="https://www.google.com/accounts/o8/id"
+                    visible="false"
+                />
+                <g:RadioButton
+                    ui:field="yahooRadioSelect"
+                    name="openid_identifier"
+                    formValue="http://me.yahoo.com/"
+                    visible="false"
+                />
+
+           </form>
+
+        </g:HTMLPanel>
+    </g:DialogBox>
+
+</ui:UiBinder>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (C) 2013, Dmitry Holodov. All rights reserved.
+-->
+<ui:UiBinder    xmlns:ui="urn:ui:com.google.gwt.uibinder"
+                xmlns:g="urn:import:com.google.gwt.user.client.ui"
+                >
+    <ui:style>
+        .displayTable tr td:first-child + td {
+            min-width: 12em;
+        }
+    </ui:style>
+
+    <g:HTML>
+        <table class="{style.displayTable}">
+            <tr>
+                <td>Screen W x H</td>
+                <td><span ui:field="screenWidthHeightSpan"/></td>
+            </tr>                            
+            <tr>
+                <td>Available W x H</td>
+                <td><span ui:field="availWidthHeightSpan"/></td>
+            </tr>
+            <tr ui:field="windowPositionRow">
+                <td>Window Position (X, Y)</td>
+                <td><span ui:field="windowPositionSpan"/></td>
+            </tr>            
+            <tr ui:field="windowOuterWidthHeightRow">
+                <td>Window Outer W x H</td>
+                <td><span ui:field="windowOuterWidthHeightSpan"/></td>
+            </tr>                            
+            <tr ui:field="windowInnerWidthHeightRow">
+                <td>Window Inner W x H</td>
+                <td><span ui:field="windowInnerWidthHeightSpan"/></td>
+            </tr>
+            <tr ui:field="clientWidthHeightRow">
+                <td>Client W x H</td>
+                <td><span ui:field="clientWidthHeightSpan"/></td>
+            </tr>                            
+            <tr ui:field="pageOffsetPositionRow">
+                <td>Page Offset (X, Y)</td>
+                <td><span ui:field="pageOffsetPositionSpan"/></td>
+            </tr>                            
+            <tr ui:field="offsetWidthHeightRow">
+                <td>Offset W x H</td>
+                <td><span ui:field="offsetWidthHeightSpan"/></td>
+            </tr>
+            <tr ui:field="mouseScreenPositionRow">
+                <td>Mouse Screen Position (X, Y)</td>
+                <td><span ui:field="mouseScreenPositionSpan"/></td>
+            </tr> 
+            <tr ui:field="mouseClientPositionRow">
+                <td>Mouse Client Position (X, Y)</td>
+                <td><span ui:field="mouseClientPositionSpan"/></td>
+            </tr>                        
+            <tr ui:field="mousePagePositionRow">
+                <td>Mouse Page Position (X, Y)</td>
+                <td><span ui:field="mousePagePositionSpan"/></td>
+            </tr> 
+            <tr ui:field="colorDepthRow">
+                <td>Color Depth</td>
+                <td><span ui:field="colorDepthSpan"/></td>
+            </tr>                            
+            <tr ui:field="pixelDepthRow">
+                <td>Pixel Depth</td>
+                <td><span ui:field="pixelDepthSpan"/></td>
+            </tr>       
+            <tr ui:field="pixelRatioRow">
+                <td>Pixel Ratio</td>
+                <td><span ui:field="pixelRatioSpan"/></td>
+            </tr>              
+            <tr ui:field="fontSmoothingRow">
+                <td>Font Smoothing</td>
+                <td><span ui:field="fontSmoothingSpan"/></td>
+            </tr>                        
+            <tr ui:field="bufferDepthRow">
+                <td>Buffer Depth</td>
+                <td><span ui:field="bufferDepthSpan"/></td>
+            </tr>                        
+            <tr ui:field="deviceDPIRow">
+                <td>Device DPI (X, Y)</td>
+                <td><span ui:field="deviceDPISpan"/></td>
+            </tr>                        
+            <tr ui:field="logicalDPIRow">
+                <td>Logical DPI (X, Y)</td>
+                <td><span ui:field="logicalDPISpan"/></td>
+            </tr>                        
+            <tr ui:field="systemDPIRow">
+                <td>System DPI (X, Y)</td>
+                <td><span ui:field="systemDPISpan"/></td>
+            </tr>                        
+            <tr ui:field="updateIntervalRow">
+                <td>Update Interval</td>
+                <td><span ui:field="updateIntervalSpan"/></td>
+            </tr> 
+        </table>                 
+    </g:HTML>
+</ui:UiBinder>

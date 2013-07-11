@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (C) 2013, Dmitry Holodov. All rights reserved.
+-->
+<ui:UiBinder    xmlns:ui="urn:ui:com.google.gwt.uibinder"
+                xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+    <ui:style>
+        .tzButton {
+            color: #0b0b61;
+            font-size: .85em;
+            padding: .2em .4em .2em .4em;
+        }
+    </ui:style>
+
+    <g:HTMLPanel>
+        <span ui:field="timeDisplay"></span>
+        <g:Button ui:field="tzButton" addStyleNames="{style.tzButton}">TZ</g:Button>                     
+    </g:HTMLPanel>
+
+</ui:UiBinder>

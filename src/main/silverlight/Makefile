@@ -1,0 +1,6 @@
+INSTALL_DIR=../webapp
+BUILD_DIR=./DeviceInfo/Bin/Release
+PLUGIN_NAME=DeviceInfo.xap
+
+$(INSTALL_DIR)/$(PLUGIN_NAME): $(BUILD_DIR)/$(PLUGIN_NAME)
+	cp -af $(BUILD_DIR)/$(PLUGIN_NAME) $(INSTALL_DIR)/$(PLUGIN_NAME)

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (C) 2013, Dmitry Holodov. All rights reserved.
+-->
+<ui:UiBinder    xmlns:ui="urn:ui:com.google.gwt.uibinder"
+                xmlns:g="urn:import:com.google.gwt.user.client.ui"
+                xmlns:df="urn:import:to.noc.devicefp.client.ui"
+                >
+    <ui:style>
+        .reverseGeocodeHeader {
+            white-space: normal;
+            background-color: #E0EDFE;
+            margin-right: 5px; /* matches map indent */
+        }
+
+        .positionErrorHeader {
+            padding-left: 0.3em;
+            padding-right: 0.3em;
+            white-space: normal !important;
+            background-color: rgb(255,225,230);
+        }
+
+    </ui:style>
+
+    <g:HTMLPanel>
+        <table ui:field="browserLocationTable">
+            <tr>
+                <td>
+                    Latitude/Longitude
+                    <img  src="images/redPin-small.png" alt="red pin"/>
+                </td>
+                <td><g:Label ui:field="latLongLabel"/></td>
+            </tr>
+            <tr>
+                <td>
+                    Accuracy Radius
+                    <img src="images/radius-small.png" alt="radius circle"/>
+                </td>
+                <td><g:Label ui:field="accuracyRadiusLabel"/></td>
+            </tr>
+            <tr>
+                <td>Geolocation Timestamp</td>
+                <td><df:TimeWithSelectableFormat ui:field="timeStamp"/></td>
+            </tr>
+            <tr>
+                <td colspan="2"><df:LocationMap ui:field="locationMap"/></td>
+            </tr>
+            <tr ui:field="reverseGeocodeHeaderRow" >
+                <td colspan="2">
+                    <div class='{style.reverseGeocodeHeader}'>
+                        Closest Reverse Geocode Coordinates (Google) —
+                        <g:Anchor ui:field="fullDecodeAnchor" target="_blank">View Full Decode</g:Anchor>
+                    </div>
+                </td>
+            </tr>
+            <tr ui:field="reverseGeocodeStatusRow">
+                <td>Geodecode Error</td>
+                <td><g:Label ui:field="reverseGeocodeStatusLabel"/></td>
+            </tr>
+            <tr ui:field="reverseGeocodeLatLongRow">
+                <td>
+                    Latitude/Longitude
+                    <img src="images/yellowPin-small.png" alt="yellow pin"/>
+                </td>
+                <td><g:Label ui:field="reverseGeocodeLatLongLabel"/></td>
+            </tr>
+            <tr ui:field="addressRow">
+                <td>Address</td>
+                <td><g:Label ui:field="addressLabel"/></td>
+            </tr>
+            <tr ui:field="addressTypeRow">
+                <td>Address Type</td>
+                <td><g:Label ui:field="addressTypeLabel"/></td>
+            </tr>
+            <tr ui:field="streetNumberRow">
+                <td>Street Number</td>
+                <td><g:Label ui:field="streetNumberLabel"/></td>
+            </tr>
+            <tr ui:field="neighborhoodRow">
+                <td>Neighborhood</td>
+                <td><g:Label ui:field="neighborhoodLabel"/></td>
+            </tr>
+            <tr ui:field="routeRow">
+                <td>Route</td>
+                <td><g:Label ui:field="routeLabel"/></td>
+            </tr>
+             <tr ui:field="localityRow">
+                <td>Locality</td>
+                <td><g:Label ui:field="localityLabel"/></td>
+            </tr>
+            <tr ui:field="adminAreaLevel1Row">
+                <td>Admin Area Level 1</td>
+                <td><g:Label ui:field="adminAreaLevel1Label"/></td>
+            </tr>
+            <tr ui:field="adminAreaLevel2Row">
+                <td>Admin Area Level 2</td>
+                <td><g:Label ui:field="adminAreaLevel2Label"/></td>
+            </tr>
+            <tr ui:field="countryRow">
+                <td>Country</td>
+                <td><g:Label ui:field="countryLabel"/></td>
+            </tr>
+            <tr ui:field="postalCodeRow">
+                <td>Postal Code</td>
+                <td><g:Label ui:field="postalCodeLabel"/></td>
+            </tr>
+
+        </table>
+        <table ui:field="positionErrorTable">
+            <tr>
+                <td colspan="2" class='{style.positionErrorHeader}'>
+                    Geolocation API returned error. Try again or with different values
+                    <a href="/geoloc#?timeout=30&amp;timeoutMultiplier=1000&amp;maxAge=1&amp;maxAgeMultiplier=3600000&amp;highAccuracy=true" target="_blank">here.</a>
+                </td>
+            </tr>
+            <tr ui:field="errorCodeRow">
+                <td>Error Code</td>
+                <td><g:Label ui:field="errorCodeLabel"/></td>
+            </tr>
+            <tr ui:field="errorMessageRow">
+                <td>Error Message</td>
+                <td><g:Label ui:field="errorMessageLabel"/></td>
+            </tr>
+        </table>
+        <div ui:field="noResponseReceived">
+            <span ui:field="noResponseReceivedCurrentDeviceMessage">
+                Browser is geolocation capable. Did you allow geolocation for
+                this page?  Also try our my
+                <a href="/geoloc#?timeout=30&amp;timeoutMultiplier=1000&amp;maxAge=1&amp;maxAgeMultiplier=3600000&amp;highAccuracy=true" target="_blank">geolocation tester.</a>
+            </span>
+            <span ui:field="noResponseReceivedSavedDeviceMessage">
+                No location data received
+            </span>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>

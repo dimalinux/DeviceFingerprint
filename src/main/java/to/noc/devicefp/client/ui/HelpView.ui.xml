@@ -1,0 +1,1227 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (C) 2013, Dmitry Holodov. All rights reserved.
+-->
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+    <ui:image field='mapHelp'  src="mapHelp.png"/>
+    <ui:style>
+        h2 {
+            margin-top: 1.5em;
+            font-size: medium;
+        }
+
+        .toc {
+        }
+
+        .sectionDesc {
+        }
+
+        .defValList {
+        }
+
+        ul.defValList li {
+            margin-top: 0.4em;
+        }
+
+        .defValList li span:first-child {
+            padding-right: 0.3em;
+            font-weight: bold;
+        }
+
+        .red {
+            color: #ff0000
+        }
+
+        .tcpSample table {
+            margin-left: auto;
+            margin-right: auto;
+            border-collapse: collapse;
+        }
+
+        .tcpSample td {
+            font-weight: bold;
+            border: solid 1px;
+            color: #0b0b61;
+            padding-left: 1em;
+            padding-right: 1em;
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+
+        .tcpSample td:first-child {
+            color: #000000;
+        }
+
+        .tcpSample p {
+            margin-top: 0.3em;
+            text-align: center;
+        }
+
+        .tcpSample p:first-child {
+            margin-top: 2em;
+            margin-bottom: 0.25em;
+            font-weight: bold;
+
+        }
+
+        .tcpSample ol{
+            -webkit-padding-start: 20px;
+            -moz-padding-start: 20px;
+        }
+
+        .center {
+            text-align: center
+        }
+
+        @sprite .mapHelp {
+            margin-left: auto;
+            margin-right: auto;
+            gwt-image: 'mapHelp';
+        }
+
+        .outerContainer {
+            padding-left: 0.3em;
+            padding-right: 0.3em;
+            max-width: 60em;
+        }
+
+    </ui:style>
+
+    <g:HTML addStyleNames="{style.outerContainer}">
+        <ol class='{style.toc}'>
+            <li><a href="#Help:Purpose">Purpose</a></li>
+            <li><a href="#Help:Summary">Summary</a></li>
+            <li><a href="#Help:ZombieCookie">Zombie Cookie</a></li>
+            <li><a href="#Help:BrowserGeolocation">Browser Geolocation</a></li>
+            <li><a href="#Help:IpGeolocation">IP Geolocation (MaxMind)</a></li>
+            <li><a href="#Help:JavascriptData">Javascript Data</a></li>
+            <li><a href="#Help:JsDisplayData">JS Display Data</a></li>
+            <li><a href="#Help:RequestHeaders">Request Headers</a></li>
+            <li><a href="#Help:SilverlightPluginData">Silverlight Plugin Data:</a></li>
+            <!-- <li><a href="#Help:JavaPluginData">Java Plugin Data</a></li> -->
+            <li><a href="#Help:FlashPluginData">Flash Plugin Data</a></li>
+            <li><a href="#Help:TcpSynPacketSignature">TCP SYN Packet Signature</a></li>
+            <li><a href="#Help:DnsData">DNS Data</a></li>
+            <li><a href="#Help:NavigatorPluginList">Navigator Plugin List</a></li>
+            <li><a href="#Help:LoginAndLinkedImprints">Login and Linked Imprints</a></li>
+        </ol>
+
+
+        <h2 id="Help:Purpose">Purpose</h2>
+        <p class='{style.sectionDesc}'>
+            I was curious what information my browser was leaking to websites, so I wrote a website to figure it out.
+            Below are details on all fields gathered and displayed.
+        </p>
+
+        <h2 id="Help:Summary">Summary</h2>
+
+        <ul class="{style.defValList}">
+            <li>
+                <span>Public IP:</span>
+                <span>The IP address that connected to the web server. If, for example, you connected from a home network
+                    behind a router doing <i>network address translation</i> (NAT), this is most likely the Internet
+                    facing IP address of the router. If you connected to the website via a proxy server, this may be the
+                    IP address of the proxy server.
+                </span>
+            </li>
+            <li>
+                <span>Public Hostname:</span>
+                <span>
+                    The reverse DNS lookup of the <i>public IP</i> address at the time of the
+                    original page load. If no reverse DNS entry was found, the <i>public IP</i>
+                    address is repeated.
+                </span>
+            </li>
+            <li>
+                <span>Proxied IP:</span>
+                <span>
+                    Many proxies add a request header called "<i>X-Forwarded-For</i>" informing
+                    the webserver of the actual client IP address. When this header is present with a
+                    syntactically correct IP address, it's displayed here. Try Opera-Mini if you would
+                    like to see an example.
+                </span>
+            </li>
+            <li>
+                <span>Proxied Host:</span>
+                <span>
+                    The reverse DNS lookup of the <i>proxied IP</i>, if present, at the time the page was loaded.
+                </span>
+            </li>
+            <!-- Recent Java versions may have fixed this.  In any case, the warning
+                 messages to run a Java applet are intolerable, so we no longer
+                 load our applet.
+            <li>
+                <span>LAN IP:</span>
+                <span>
+                    The IP address of your computer on your <i>local area network</i> (LAN).
+                    The value will only be displayed if you have Java installed and allow the website's
+                    applet to run. Unsigned Java applets cannot query the networking subsystem, but they can make network
+                    connections back to the applet's origin server. Our applet makes a connection back to the server
+                    and pulls the outbound IP on the client side from this connection.
+                </span>
+            </li>
+            -->
+            <li>
+                <span>Public DNS Host:</span>
+                <span>
+                    See <i><a href="#Help:DnsData">DNS Data</a></i> below.
+                </span>
+            </li>
+            <li>
+                <span>Operating System:</span>
+                <span>
+                    Uses information from the Flash <!--, Java,--> and Javascript
+                    subsections to provide the best possible Operating System
+                    description using available information. How this value is
+                    constructed may evolve and feedback on how to improve it is
+                    always welcome.
+                </span>
+            </li>
+            <li>
+                <span>UA Browser, UA Operating System:</span>
+                <span>
+                    These values are derived completely from the <i>User Agent</i> string which is
+                    available in both Javascript and as a <i>request header</i> of HTTP connections.
+                    The site currently uses the
+                    <a href="http://uadetector.sourceforge.net/">UADetector</a> API Library to
+                    query
+                    <a href="http://user-agent-string.info/">user-agent-string.info's</a> catalog
+                    of user agents.
+                </span>
+            </li>
+            <li>
+                <span>Processor Cores:</span>
+                <span>
+                    See Silverlight section.
+                </span>
+            </li>
+            <li>
+                <span>Screen Resolution:</span>
+                <span>
+                    Uses the more reliable screen resolution provided by Flash and falls back to the Javascript value
+                    otherwise.
+                </span>
+            </li>
+            <li>
+                <span>Client Uptime:</span>
+                <span>
+                    Value is computed from Silverlight's <i>TickCount</i>. It is not displayed for
+                    Mac OS X users, but should be reliable for everyone else. Value loops back to
+                    zero after 49.7 days.
+                </span>
+            </li>
+            <li>
+                <span>Server Timestamp:</span>
+                <span>
+                    Timestamp, from the web server's perspective, when the page was initially loaded.
+                </span>
+            </li>
+            <li>
+                <span>Client Timestamp:</span>
+                <span>
+                    Timestamp, from the client browser's perspective, when the page was initially rendered.
+                </span>
+            </li>
+        </ul>
+
+        <p class='{style.sectionDesc}'>
+            Note: There are 3 ways to format Timestamps using the website's "TZ"
+            buttons:
+        </p>
+        <ol class="{style.defValList}">
+            <li>
+                <span>Coordinated Universal time (UTC):</span>
+                <span>
+                    If you're not a scientist, UTC is the same as GMT.
+                </span>
+            </li>
+            <li>
+                <span>
+                    Device Timezone:
+                </span>
+                <span>
+                    Time adjusted to the UTC offset provided by <u>the browser that loaded the page</u>
+                    at the time the page was loaded.
+                </span>
+            </li>
+            <li>
+                <span>Current Locale:</span>
+                <span>
+                    Time formatted in the locale (number formatting, language, and timezone) of
+                    <u>the current browser</u> at the current time.
+                </span>
+            </li>
+        </ol>
+
+
+        <h2 id="Help:ZombieCookie">ZombieCookie</h2>
+        <ul class="{style.defValList}">
+            <li>
+                <span>ID:</span>
+                <span>
+                    The end value of the synchronized cookie. If you have Flash or Silverlight installed, your
+                    cookie value will most likely be synced between browsers on the same computer.
+                </span>
+            </li>
+            <li>
+                <span>Inception:</span>
+                <span>
+                    Timestamp when the cookie was originally created by the webserver.
+                </span>
+            </li>
+            <li>
+                <span>Regular cookie:</span>
+                <span>
+                    State of the generic web browser cookie.
+                </span>
+            </li>
+            <li>
+                <span>Web Storage Cookie:</span>
+                <span>
+                    Modern browsers provide additional storage beyond what generic cookies can provide. The
+                    storage is generic in nature, but can be used for cookies.
+                </span>
+            </li>
+            <li>
+                <span>Flash Cookie:</span>
+                <span>
+                    Flash's storage system is called <i>Local Shared Objects</i>. Unlike
+                    <i>HTML5 Web Storage</i>, this storage is usually shared by all browsers on
+                    the local computer.
+                </span>
+            </li>
+            <li>
+                <span>Silverlight Cookie:</span>
+                <span>
+                    Silverlight's storage system is called <i>Isolated Storage</i>. Like Flash's
+                    storage, this data is usually shared by all browsers on the local computer.
+                </span>
+            </li>
+        </ul>
+
+
+        <h2 id="Help:BrowserGeolocation">Browser Geolocation</h2>
+        <p class='{style.sectionDesc}'>
+            The <i>coordinates</i>, <i>accuracy radius</i> and <i>timestamp</i>
+            values all come directly from the HTML5 JavaScript Geolocation API.
+            <i>altitude</i>, <i>speed</i>, and <i>heading</i> values are only
+            reported if available.  Developers might also like to play with my
+            dedicated
+            <a href="/geoloc#?timeout=30&amp;timeoutMultiplier=1000&amp;maxAge=1&amp;maxAgeMultiplier=3600000&amp;highAccuracy=true" target="_blank">
+                geolocation test page.
+            </a>
+            Note: The website just reports values as received. If the information
+            is wildly inaccurate at times, I hope that knowledge is useful.
+        </p>
+        <p class='{style.sectionDesc}'>
+            All maps are rendered using the Google Maps API. The blue circle
+            represents the accuracy radius. If no accuracy information is
+            available, we arbitrarily draw the blue circle with a radius of
+            1 million meters.
+        </p>
+
+        <div class='{style.mapHelp}'/>
+
+        <h2 id="Help:IpGeolocation">IP Geolocation (MaxMind)</h2>
+        <p class='{style.sectionDesc}'>
+            There are many companies that compile geolocation information by IP address. Maxmind is the one that I
+            chose for my website. Descriptions of the fields I display can be found here:
+            <a href="http://www.maxmind.com/app/web_services_omni">GeoIP Omni Web Service</a>
+        </p>
+        <p class='{style.sectionDesc}'>
+            All maps are rendered by the Google Maps API. The blue circle
+            represents the accuracy radius. If no accuracy information is
+            available, we arbitrarily draw the blue circle with a radius of
+            1 million meters.
+        </p>
+
+
+        <h2 id="Help:JavascriptData">Javascript Data</h2>
+        <p class='{style.sectionDesc}'>
+            Javascript has a global navigator variable with many fields. Not all
+            fields exist in all browsers. If you don't see a field listed
+            in this section, it means that the associated Javascript value was
+            not defined by your client browser.
+        </p>
+
+        <ul class="{style.defValList}">
+            <li>
+                <span>User Agent:</span>
+                <span>
+                    <i>navigator.userAgent</i>
+                </span>
+            </li>
+            <li>
+                <span>App Name:</span>
+                <span>
+                    <i>navigator.appName</i>
+                </span>
+            </li>
+            <li>
+                <span>App Code Name:</span>
+                <span>
+                    <i>navigator.appCodeName</i>
+                </span>
+            </li>
+            <li>
+                <span>App Version:</span>
+                <span>
+                    <i>navigator.appVersion</i>
+                </span>
+            </li>
+            <li>
+                <span>App Minor Version:</span>
+                <span>
+                    <i>navigator.appMinorVersion</i>
+                </span>
+            </li>
+            <li>
+                <span>Build ID:</span>
+                <span>
+                    <i>navigator.buildID</i>
+                </span>
+            </li>
+            <li>
+                <span>Platform:</span>
+                <span>
+                    <i>navigator.platform</i>
+                </span>
+            </li>
+            <li>
+                <span>CPU Class:</span>
+                <span>
+                    <i>navigator.cpuClass</i>
+                </span>
+            </li>
+            <li>
+                <span>OS CPU:</span>
+                <span>
+                    <i>navigator.oscpu</i>
+                </span>
+            </li>
+            <li>
+                <span>Product:</span>
+                <span>
+                    <i>navigator.product</i>
+                </span>
+            </li>
+            <li>
+                <span>Product Sub:</span>
+                <span>
+                    <i>navigator.productSub</i>
+                </span>
+            </li>
+            <li>
+                <span>Vendor:</span>
+                <span>
+                    <i>navigator.vendor</i>
+                </span>
+            </li>
+            <li>
+                <span>Vendor Sub:</span>
+                <span>
+                    <i>navigator.vendorSub</i>
+                </span>
+            </li>
+            <li>
+                <span>Language:</span>
+                <span>
+                    <i>navigator.language</i>
+                </span>
+            </li>
+            <li>
+                <span>User Language:</span>
+                <span>
+                    <i>navigator.userLanguage</i>
+                </span>
+            </li>
+            <li>
+                <span>Browser Language:</span>
+                <span>
+                    <i>navigator.browserLanguage</i>
+                </span>
+            </li>
+            <li>
+                <span>System Language:</span>
+                <span>
+                    <i>navigator.systemLanguage</i>
+                </span>
+            </li>
+            <li>
+                <span>Do Not Track:</span>
+                <span>
+                    <i>navigator.doNotTrack</i>
+                </span>
+            </li>
+            <li>
+                <span>MS Do Not Track:</span>
+                <span>
+                    <i>navigator.msDoNotTrack</i>
+                </span>
+            </li>
+            <li>
+                <span>Java:</span>
+                <span>
+                    <i>navigator.javaEnabled()</i> Note: this value means different things on different browsers.
+                    Unfortunately, in IE and some other browsers it just means that the applet tag is enabled,
+                    but does not tell you if Java is actually installed.
+                </span>
+            </li>
+            <li>
+                <span>Geolocation:</span>
+                <span>
+                    <i>yes</i> if <i>navigator.geolocation</i> is defined, otherwise <i>no</i>
+                </span>
+            </li>
+            <li>
+                <span>Cookies:</span>
+                <span>
+                    <i>navigator.cookieEnabled</i>
+                </span>
+            </li>
+            <li>
+                <span>Cookie Test:</span>
+                <span>
+                    <i>navigator.cookieEnabled</i> can lie in some browsers. If a write followed by a read back
+                    matches, you'll see <i>passed</i> here, otherwise <i>failed</i>
+                </span>
+            </li>
+            <li>
+                <span>Web Storage:</span>
+                <span>
+                    <i>yes</i> if <i>window.localStorage</i> is defined, otherwise <i>no</i>
+                </span>
+            </li>
+            <li>
+                <span>Web Storage Test:</span>
+                <span>
+                    If a write followed by a read back to web local storage matches, you'll see <i>passed</i>
+                    here, otherwise <i>failed</i>
+                </span>
+            </li>
+        </ul>
+
+
+        <h2 id="Help:JsDisplayData">JS Display Data</h2>
+        <p>
+            As with the primary Javascript section, not all fields exist in all browsers. If you don't see a
+            field listed in this section, it means that the associated Javascript value was not defined
+            (except for <i>pixel depth</i>).  For an excellent description with pictures, read this
+            <a href="http://www.quirksmode.org/mobile/viewports.html">quirksmode article</a>.
+        </p>
+        <ul class="{style.defValList}">
+            <li>
+                <span>Screen W x H:</span>
+                <span>
+                    <i>screen.width</i>, <i>screen.height</i>
+                </span>
+            </li>
+            <li>
+                <span>Available W x H:</span>
+                <span>
+                    <i>screen.availWidth</i>, <i>screen.availHeight</i>
+                </span>
+            </li>
+            <li>
+                <span>Window Position (X, Y):</span>
+                <span>
+                    <i>window.screenX</i>, <i>winow.screenY</i> or
+                    <i>window.screenTop</i>, <i>window.screenLeft</i>
+                     - alternate <i>top</i> and <i>left</i> values are only
+                     used if the primary <i>X</i> and <i>Y</i> values are undefined.
+                </span>
+            </li>
+            <li>
+                <span>Window Outer W x H:</span>
+                <span>
+                    <i>window.outerWidth</i>, <i>window.outerHeight</i>
+                </span>
+            </li>
+            <li>
+                <span>Window Inner W x H:</span>
+                <span>
+                    <i>window.innerWidth</i>, <i>window.innerHeight</i>
+                </span>
+            </li>
+            <li>
+                <span>Client W x H:</span>
+                <span>
+                    <i>document.documentElement.clientWidth</i>, <i>document.documentElement.clientHeight</i>
+                </span>
+            </li>
+            <li>
+                <span>Page Offset (X, Y):</span>
+                <span>
+                    <i>window.pageXOffset</i>, <i>winow.pageYOffset</i> or
+                    <i>document.body.scrollLeft</i>, <i>document.body.scrollTop</i>
+                     - alternate <i>top</i> and <i>left</i> values are only
+                     used if the primary <i>X</i> and <i>Y</i> values are undefined.
+                </span>
+            </li>
+            <li>
+                <span>Mouse Screen Position (X, Y):</span>
+                <span>
+                    <i>screenX</i> and <i>screenY</i> values of last mouse or
+                    touch event.  The absolute position on the screen.
+                </span>
+            </li>
+            <li>
+                <span>Mouse Client Position (X, Y):</span>
+                <span>
+                    <i>clientX</i> and <i>clientY</i> values of last mouse or
+                    touch event.  The position relative to the client window.
+                </span>
+            </li>
+            <li>
+                <span>Mouse Page Position (X, Y):</span>
+                <span>
+                    <i>pageX</i> and <i>pageY</i> values of last mouse or
+                    touch event. The position relative to the document page
+                    which may have been scrolled.
+                </span>
+            </li>
+            <li>
+                <span>Color Depth:</span>
+                <span>
+                    <i>screen.colorDepth</i>
+                </span>
+            </li>
+            <li>
+                <span>Pixel Depth:</span>
+                <span>
+                    <i>screen.pixelDepth</i> -- if the value is the same as
+                    <i>screen.colorDepth</i> we don't display this value.
+                </span>
+            </li>
+            <li>
+                <span>Pixel Ratio:</span>
+                <span>
+                    <i>window.devicePixelRatio</i>
+                </span>
+            </li>
+            <li>
+                <span>Font Smoothing:</span>
+                <span>
+                    <i>screen.fontSmoothingEnabled</i>
+                </span>
+            </li>
+            <li>
+                <span>Buffer Depth:</span>
+                <span>
+                    <i>screen.bufferDepth</i>
+                </span>
+            </li>
+            <li>
+                <span>Device DPI (X, Y):</span>
+                <span>
+                    <i>screen.deviceXDPI</i>, <i>screen.deviceYDPI</i>
+                </span>
+            </li>
+            <li>
+                <span>Logical DPI (X, Y):</span>
+                <span>
+                    <i>screen.logicalXDPI</i>, <i>screen.logicalYDPI</i>
+                </span>
+            </li>
+            <li>
+                <span>System DPI (X, Y):</span>
+                <span>
+                    <i>screen.systemXDPI</i>, <i>screen.systemYDPI</i>
+                </span>
+            </li>
+            <li>
+                <span>Update Interval:</span>
+                <span>
+                    <i>screen.updateInterval</i>
+                </span>
+            </li>
+        </ul>
+
+        <p class='{style.sectionDesc}'>
+            Since display values change when you rotate the screen on mobile devices or when you reposition the browser
+            window on desktops, a refresh button is provided to reload the values.
+        </p>
+
+
+        <h2 id="Help:RequestHeaders">Request Headers</h2>
+        <p class='{style.sectionDesc}'>
+            Name/value pairs sent from the client computer to the server when retrieving a page. The list is complete, but
+            with cookie entries removed.
+        </p>
+
+
+        <h2 id="Help:SilverlightPluginData">Silverlight Plugin Data</h2>
+        <p class='{style.sectionDesc}'>
+            The C# global variables displayed by the website are:
+        </p>
+        <ul class="{style.defValList}">
+            <li>
+                <span>OS Version:</span>
+                <span>
+                    <i>Environment.OSVersion.Version</i>
+                </span>
+            </li>
+            <li>
+                <span>CLR Version:</span>
+                <span>
+                    <i>Environment.Version</i>
+                </span>
+            </li>
+            <li>
+                <span>Processor Cores:</span>
+                <span>
+                    <i>Environment.ProcessorCount</i>
+                </span>
+            </li>
+            <li>
+                <span>Tickcount:</span>
+                <span>
+                    <i>Environment.TickCount</i>. This is the number of milliseconds since the computer was rebooted
+                    or started. It is represented as a signed, 32-bit integer. This means that it wraps back to zero
+                    after 2<sup>32</sup> (approximately 49.7 days) milliseconds. It goes negative after 2<sup>31</sup>
+                    milliseconds (approximately 28.9 days). While it seems reliable on Windows and in Mono on Linux, it
+                    does not appear to be reliable on Mac OS X.
+                </span>
+            </li>
+            <li>
+                <span>Isolated Storage:</span>
+                <span>
+                    <i>IsolatedStorageFile.IsEnabled</i>
+                </span>
+            </li>
+            <li>
+                <span>Isolated Storage Test:</span>
+                <span>
+                    <i>true</i> if a write then read back test verifies, otherwise <i>false</i>
+                </span>
+            </li>
+        </ul>
+
+
+        <!--
+        <h2 id="Help:JavaPluginData">Java Plugin Data</h2>
+        <p class='{style.sectionDesc}'>
+            The data displayed in the java section all comes from Java system properties available to applets:
+        </p>
+        <ul class="{style.defValList}">
+            <li>
+                <span>Java Vendor:</span>
+                <span>
+                    <i>java.vendor</i>
+                </span>
+            </li>
+            <li>
+                <span>Vendor URL:</span>
+                <span>
+                    <i>java.vendor.url</i>
+                </span>
+            </li>
+            <li>
+                <span>Java Version:</span>
+                <span>
+                    <i>java.version</i>
+                </span>
+            </li>
+            <li>
+                <span>OS Arch:</span>
+                <span>
+                    <i>os.arch</i>
+                </span>
+            </li>
+            <li>
+                <span>OS Name:</span>
+                <span>
+                    <i>os.name</i>
+                </span>
+            </li>
+            <li>
+                <span>OS Version:</span>
+                <span>
+                    <i>os.version</i>
+                </span>
+            </li>
+        </ul>
+        -->
+
+
+        <h2 id="Help:FlashPluginData">Flash Plugin Data</h2>
+        <p>
+            Flash data comes from a variable called <i>Capabilities</i> in ActionScript.
+            Below are the individual values displayed:
+        </p>
+        <ul class="{style.defValList}">
+            <li>
+                <span>Plugin Version:</span>
+                <span>
+                    <i>Capabilities.version</i>
+                </span>
+            </li>
+            <li>
+                <span>Plugin Manufacturer:</span>
+                <span>
+                    <i>Capabilities.manufacturer</i>
+                </span>
+            </li>
+            <li>
+                <span>Language:</span>
+                <span>
+                    <i>Capabilities.language</i>
+                </span>
+            </li>
+            <li>
+                <span>Operating System:</span>
+                <span>
+                    <i>Capabilities.os</i>
+                </span>
+            </li>
+            <li>
+                <span>CPU Architecture:</span>
+                <span>
+                    <i>Capabilities.cpuArchitecture</i>
+                </span>
+            </li>
+            <li>
+                <span>Supports 32-Bit Processes:</span>
+                <span>
+                    <i>Capabilities.supports32BitProcesses</i>
+                </span>
+            </li>
+            <li>
+                <span>Supports 64-Bit Processes:</span>
+                <span>
+                    <i>Capabilities.supports64BitProcesses</i>
+                </span>
+            </li>
+            <li>
+                <span>Screen Color:</span>
+                <span>
+                    <i>Capabilities.screenColor</i>
+                </span>
+            </li>
+            <li>
+                <span>Touchscreen Type:</span>
+                <span>
+                    <i>Capabilities.touchscreenType</i>
+                </span>
+            </li>
+            <li>
+                <span>Screen Resolution:</span>
+                <span>
+                    <i>Capabilities.screenResolutionX</i>, <i>Capabilities.screenResolutionY</i>
+                </span>
+            </li>
+            <li>
+                <span>Pixel Aspect Ratio:</span>
+                <span>
+                    <i>Capabilities.pixelAspectRatio</i>
+                </span>
+            </li>
+            <li>
+                <span>Screen DPI:</span>
+                <span>
+                    <i>Capabilities.screenDPI</i>
+                </span>
+            </li>
+            <li>
+                <span>AV Hardware Disabled:</span>
+                <span>
+                    <i>Capabilities.avHardwareDisable</i>
+                </span>
+            </li>
+            <li>
+                <span>File Read Disabled:</span>
+                <span>
+                    <i>Capabilities.localFileReadDisable</i>
+                </span>
+            </li>
+            <li>
+                <span>Has Printing:</span>
+                <span>
+                    <i>Capabilities.hasPrinting</i>
+                </span>
+            </li>
+            <li>
+                <span>Has Accessibility:</span>
+                <span>
+                    <i>Capabilities.hasAccessibility</i>
+                </span>
+            </li>
+            <li>
+                <span>Has Audio:</span>
+                <span>
+                    <i>Capabilities.hasAudio</i>
+                </span>
+            </li>
+            <li>
+                <span>Has MP3:</span>
+                <span>
+                    <i>Capabilities.hasMP3</i>
+                </span>
+            </li>
+            <li>
+                <span>Has Embedded Video:</span>
+                <span>
+                    <i>Capabilities.hasEmbeddedVideo</i>
+                </span>
+            </li>
+            <li>
+                <span>Has Screen Broadcast:</span>
+                <span>
+                    <i>Capabilities.hasScreenBroadcast</i>
+                </span>
+            </li>
+            <li>
+                <span>Has Screen Playback:</span>
+                <span>
+                    <i>Capabilities.hasScreenPlayback</i>
+                </span>
+            </li>
+            <li>
+                <span>Has Streaming Audio:</span>
+                <span>
+                    <i>Capabilities.hasStreamingAudio</i>
+                </span>
+            </li>
+            <li>
+                <span>Has Streaming Video:</span>
+                <span>
+                    <i>Capabilities.hasStreamingVideo</i>
+                </span>
+            </li>
+            <li>
+                <span>Has Audio Encoder:</span>
+                <span>
+                    <i>Capabilities.hasAudioEncoder</i>
+                </span>
+            </li>
+            <li>
+                <span>Has Video Encoder:</span>
+                <span>
+                    <i>Capabilities.hasVideoEncoder</i>
+                </span>
+            </li>
+            <li>
+                <span>Has Input Method Editor:</span>
+                <span>
+                    <i>Capabilities.hasIME</i>
+                </span>
+            </li>
+            <li>
+                <span>Max Level IDC:</span>
+                <span>
+                    <i>Capabilities.maxLevelIDC</i>
+                </span>
+            </li>
+            <li>
+                <span>Player Type:</span>
+                <span>
+                    <i>Capabilities.playerType</i>
+                </span>
+            </li>
+            <li>
+                <span>Is Debugger:</span>
+                <span>
+                    <i>Capabilities.isDebugger</i>
+                </span>
+            </li>
+            <li>
+                <span>Has Transport Layer Security:</span>
+                <span>
+                    <i>Capabilities.hasTLS</i>
+                </span>
+            </li>
+        </ul>
+
+
+        <h2 id="Help:TcpSynPacketSignature">TCP SYN Packet Signature</h2>
+        <p class='{style.sectionDesc}'>
+            Web clients connect to web servers using a network protocol called TCP. The first packet sent by the
+            client when negotiating a connection is the SYN packet. The signature of this packet, especially in the
+            <i>TCP Options</i>, frequently differs from one operating system to another even between versions of
+            the same operating system.
+        </p>
+        <ul class="{style.defValList}">
+            <li>
+                <span>IP Time to Live (rec'd):</span>
+                <span>
+                    IPv4 packets keep a <i>Time to Live</i> (TTL) counter that is decremented by routers
+                    as they traverse the network. To avoid infinite routing loops, routers will drop
+                    packet when this counter reaches zero.
+                </span>
+            </li>
+            <li>
+                <span>IP Time to Live (origin):</span>
+                <span>
+                    The TTL value that was initially sent is more interesting than the received value from a client
+                    fingerprinting standpoint. Using the received TTL in conjunction with the other packet values, we can
+                    conjecture a reasonably accurate origin value.
+                    <span class='{style.red}'>(Future feature. Not yet implemented.)</span>
+                </span>
+            </li>
+            <li>
+                <span>IP Type of Service:</span>
+                <span>
+                    See <a href="http://en.wikipedia.org/wiki/Type_of_service">Wikipedia article</a>.
+                    While this value may have come from the client computer, intermediate routers sometimes
+                    change the value.
+                </span>
+            </li>
+            <li>
+                <span>IP Total Length:</span>
+                <span>
+                    Total length of the IP datagram measured in bytes.
+                </span>
+            </li>
+            <li>
+                <span>IP Flags:</span>
+                <span>
+                    There are 3 bits of flags in the IP header, but the main one of interest here is the
+                    <i>don't fragment</i> bit. Windows, Mac, Linux, Android and Apple IOS clients all
+                    set the <i>don't fragment</i> bit by default. If you see that it's not set,
+                    then your connection is probably going through a proxy.
+                </span>
+            </li>
+            <li>
+                <span>TCP Flags:</span>
+                <span>
+                    The possible flags in the TCP header are <i>SYN</i>, <i>FIN</i>, <i>RESET</i>, <i>PUSH</i>,
+                    <i>URG</i>, and <i>ACK</i>, but <i>SYN</i> packets by definition have the
+                    <i>SYN</i> bit set and the <i>ACK</i> bit unset. I may remove this field as the
+                    only flag you should ever see here is SYN.
+                </span>
+            </li>
+            <li>
+                <span>TCP Window Size:</span>
+                <span>
+                    Value of the 16-bit window size field in the TCP header. See
+                    <a href="http://en.wikipedia.org/wiki/Transmission_Control_Protocol#Window_scaling">wikipedia</a>
+                    for details.
+                </span>
+            </li>
+            <li>
+                <span>TCP Options:</span>
+                <span>A variable length list of options that form the most important part of the TCP signature. Both
+                    the number of options, the order of the options, and the option values (except for any timestamp value) are
+                    part of the signature.
+                </span>
+            </li>
+        </ul>
+
+        <p class='{style.sectionDesc}'>
+            Below are some common SYN signatures ("*" indicates a non-fixed value). Note: If your
+            traffic is going through a proxy server, the signature you will see most likely represents that of the proxy
+            server, not your client device.
+        </p>
+
+        <div class='{style.tcpSample}'>
+
+            <p>Windows 7 Service Pack 1</p>
+
+            <table>
+                <tbody>
+                    <tr>
+                        <td>IP Time to Live (origin)</td>
+                        <td>128</td>
+                    </tr>
+                    <tr>
+                        <td>IP Type of Service</td>
+                        <td>0x0</td>
+                    </tr>
+                    <tr>
+                        <td>IP Total Length</td>
+                        <td>52</td>
+                    </tr>
+                    <tr>
+                        <td>IP Flags</td>
+                        <td>Don't Fragment</td>
+                    </tr>
+                    <tr>
+                        <td>TCP Flags</td>
+                        <td>SYN</td>
+                    </tr>
+                    <tr>
+                        <td>TCP Window Size</td>
+                        <td>8192</td>
+                    </tr>
+                    <tr>
+                        <td>TCP Options</td>
+                        <td>
+                            <ol>
+                                <li>Max Segment Size: <i>*</i></li>
+                                <li>No Operation</li>
+                                <li>Window Scale: 2</li>
+                                <li>No Operation</li>
+                                <li>No Operation</li>
+                                <li>Selective ACK Permitted</li>
+                            </ol>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+        <div class='{style.tcpSample}'>
+
+            <p>Mac OS X 10.3 - 10.7</p>
+
+            <table>
+                <tbody>
+                    <tr>
+                        <td>IP Time to Live (origin)</td>
+                        <td>64</td>
+                    </tr>
+                    <tr>
+                        <td>IP Type of Service</td>
+                        <td>0x0</td>
+                    </tr>
+                    <tr>
+                        <td>IP Total Length</td>
+                        <td>64</td>
+                    </tr>
+                    <tr>
+                        <td>IP Flags</td>
+                        <td>Don't Fragment</td>
+                    </tr>
+                    <tr>
+                        <td>TCP Flags</td>
+                        <td>SYN</td>
+                    </tr>
+                    <tr>
+                        <td>TCP Window Size</td>
+                        <td>65535</td>
+                    </tr>
+                    <tr>
+                        <td>TCP Options</td>
+                        <td>
+                            <ol>
+                                <li>Max Segment Size: <i>*</i></li>
+                                <li>No Operation</li>
+                                <li>Window Scale: 3 or 1</li>
+                                <li>No Operation</li>
+                                <li>No Operation</li>
+                                <li>Timestamp Value: <i>*</i></li>
+                                <li>Selective ACK Permitted</li>
+                                <li>End of Option List</li>
+                            </ol>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>
+                <b>IOS 5.1:</b> Same as above, but with a <i>Window Scale</i> value of 4 or 2.
+            </p>
+
+        </div>
+
+
+        <div class='{style.tcpSample}'>
+            <p>Linux Mint with 3.x Kernel</p>
+
+            <table>
+                <tbody>
+                    <tr>
+                        <td>IP Time to Live (origin)</td>
+                        <td>64</td>
+                    </tr>
+                    <tr>
+                        <td>IP Type of Service</td>
+                        <td>0x0</td>
+                    </tr>
+                    <tr>
+                        <td>IP Total Length</td>
+                        <td>60</td>
+                    </tr>
+                    <tr>
+                        <td>IP Flags</td>
+                        <td>Don't Fragment</td>
+                    </tr>
+                    <tr>
+                        <td>TCP Flags</td>
+                        <td>SYN</td>
+                    </tr>
+                    <tr>
+                        <td>TCP Window Size</td>
+                        <td>14600</td>
+                    </tr>
+                    <tr>
+                        <td>TCP Options</td>
+                        <td>
+                            <ol>
+                                <li>Max Segment Size: <i>*</i></li>
+                                <li>Selective ACK Permitted</li>
+                                <li>Timestamp Value: <i>*</i></li>
+                                <li>No Operation</li>
+                                <li>Window Scale: 7</li>
+                            </ol>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>
+                <b>Android 2.2 - 4.0:</b>
+                Same as above, but the <i>TCP Window Size</i> and <i>Window Scale</i>
+                values vary widely between devices.
+            </p>
+
+        </div>
+
+
+        <h2 id="Help:DnsData">DNS Data</h2>
+        <p class='{style.sectionDesc}'>
+            Every page load of the site places a script link back to the webserver using a unique URL. This URL is
+            resolved by a DNS server linked to the website.
+        </p>
+        <ul class="{style.defValList}">
+            <li>
+                <span>Public DNS IP:</span>
+                <span>
+                    The IP address of the recursive nameserver that connected to the site's DNS server.
+                    Nameservers usually use separate IP addresses to service clients and perform lookups. Do
+                    not expect the public IP to match the IP address your client connected to.
+                </span>
+            </li>
+            <li>
+                <span>Public DNS Host:</span>
+                <span>
+                    The reverse lookup of the Public DNS IP at the time the page was loaded.
+                </span>
+            </li>
+            <li>
+                <span>Client did IPv6 Lookup:</span>
+                <span>
+                    Many clients support IPv6 and launch an IPv6 query before the IPv4 lookup. This value is set
+                    to true if our server received this lookup.
+                </span>
+            </li>
+            <li>
+                <span>Country, ISP, and AS Number:</span>
+                <span>
+                    IP based geolocation values are pulled from Maxmind using the <i>Public DNS IP</i>.
+                </span>
+            </li>
+        </ul>
+
+
+        <h2 id="Help:NavigatorPluginList">Navigator Plugin List</h2>
+        <p class='{style.sectionDesc}'>
+            On most browsers other than Internet Explorer, Javascript provides a
+            <i>navigator.plugins</i> array. This section displays those values sorted alphabetically.
+        </p>
+
+
+        <h2 id="Help:LoginAndLinkedImprints">Login and Linked Imprints</h2>
+        <p class='{style.sectionDesc}'>
+            The first time you log in using Google or Yahoo OpenID, an account is automatically created.
+            When you are logged in, <i>Linked Imprints</i> will include all fingerprints which had a cookie
+            linked to your user id (across different hosts).  Otherwise, <i>Linked Imprints</i> will
+            only show fingerprints linked to the current zombie cookie.
+        </p>
+
+    </g:HTML>
+</ui:UiBinder>

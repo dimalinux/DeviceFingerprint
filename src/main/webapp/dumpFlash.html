@@ -1,0 +1,49 @@
+<html>
+<head>
+    <title>Test DeviceInfo Flash Plugin</title>
+
+    <script>
+        function deviceInfoFlashLoaded(flashValues) {
+
+            var text = "Flash Values:\n-------------\n";
+            for (property in flashValues) {
+                text += (property + ': ' + flashValues[property] + '\n');
+            }
+
+            text = "<pre>" + text + "</pre>";
+            var info = document.getElementById("info");
+            if ("outerHTML" in info) {
+                info.outerHTML =  text;
+            } else {
+                info.innerHTML = text;
+            }
+
+        }
+    </script>
+</head>
+<body>
+
+<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+        codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"
+        width="1" height="1"
+        id="DeviceInfoFlash">
+
+    <param name="movie" VALUE="DeviceInfoFlash.swf"/>
+    <param name="quality" VALUE="high"/>
+    <param name="bgcolor" VALUE="white"/>
+    <param name="allowScriptAccess" value="true"/>
+
+    <embed src="DeviceInfoFlash.swf"
+           quality="high"
+           bgcolor="white"
+           width="1" height="1"
+           allowScriptAccess="true"
+           name="DeviceInfoFlash"
+           type="application/x-shockwave-flash"
+    </embed>
+</object>
+
+<div id="info">... waiting ActionScript callback to JavaScript ...</div>
+
+</body>
+</html>

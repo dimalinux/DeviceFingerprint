@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (C) 2013, Dmitry Holodov. All rights reserved.
+-->
+<ui:UiBinder    xmlns:ui="urn:ui:com.google.gwt.uibinder"
+                xmlns:g="urn:import:com.google.gwt.user.client.ui"
+                >
+    <ui:style>
+        .anchorCell {
+            padding-left: 3.5em;
+            padding-top: 0.6em;
+        }
+    </ui:style>
+
+    <g:HTMLPanel>              
+        <table>            
+            <tr>
+                <td>Plugin Version</td>
+                <td>
+                    <g:Label ui:field="versionLabel"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Plugin Manufacturer</td>
+                <td>
+                    <g:Label ui:field="manufacturerLabel"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Language</td>
+                <td>
+                    <g:Label ui:field="languageLabel"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Operating System</td>
+                <td>
+                    <g:Label ui:field="osLabel"/>
+                </td>
+            </tr>
+            <tr>
+                <td>CPU Architecture</td>
+                <td>
+                    <g:Label ui:field="cpuArchLabel"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Supports 32-Bit Processes</td>
+                <td>
+                    <g:Label ui:field="supports32bitLabel"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Supports 64-Bit Processes</td>
+                <td>
+                    <g:Label ui:field="supports64bitLabel"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Screen Color</td>
+                <td>
+                    <g:Label ui:field="screenColorLabel"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Touchscreen Type</td>
+                <td>
+                    <g:Label ui:field="touchscreenTypeLabel"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Screen Resolution</td>
+                <td>
+                    <g:Label ui:field="screenResolutionLabel"/>
+                </td>
+            </tr>
+            <tr>
+                <td>LSO Storage Test</td>
+                <td>
+                    <g:Label ui:field="lsoStorageTestLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="pixelAspectRatioRow">
+                <td>Pixel Aspect Ratio</td>
+                <td>
+                    <g:Label ui:field="pixelAspectRatioLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="screenDpiRow">
+                <td>Screen DPI</td>
+                <td>
+                    <g:Label ui:field="screenDpiLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="avHardwareDisabledRow">
+                <td>AV Hardware Disabled</td>
+                <td>
+                    <g:Label ui:field="avHardwareDisabledLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="fileReadDisabledRow">
+                <td>File Read Disabled</td>
+                <td>
+                    <g:Label ui:field="fileReadDisabledLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="hasPrintingRow">
+                <td>Has Printing</td>
+                <td>
+                    <g:Label ui:field="hasPrintingLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="hasAccessibilityRow">
+                <td>Has Accessibility</td>
+                <td>
+                    <g:Label ui:field="hasAccessibilityLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="hasAudioRow">
+                <td>Has Audio</td>
+                <td>
+                    <g:Label ui:field="hasAudioLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="hasMp3Row">
+                <td>Has MP3</td>
+                <td>
+                    <g:Label ui:field="hasMp3Label"/>
+                </td>
+            </tr>
+            <tr ui:field="hasEmbeddedVideoRow">
+                <td>Has Embedded Video</td>
+                <td>
+                    <g:Label ui:field="hasEmbeddedVideoLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="hasScreenBroadcastRow">
+                <td>Has Screen Broadcast</td>
+                <td>
+                    <g:Label ui:field="hasScreenBroadcastLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="hasScreenPlaybackRow">
+                <td>Has Screen Playback</td>
+                <td>
+                    <g:Label ui:field="hasScreenPlaybackLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="hasStreamingAudioRow">
+                <td>Has Streaming Audio</td>
+                <td>
+                    <g:Label ui:field="hasStreamingAudioLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="hasStreamingVideoRow">
+                <td>Has Streaming Video</td>
+                <td>
+                    <g:Label ui:field="hasStreamingVideoLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="hasAudioEncoderRow">
+                <td>Has Audio Encoder</td>
+                <td>
+                    <g:Label ui:field="hasAudioEncoderLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="hasVideoEncoderRow">
+                <td>Has Video Encoder</td>
+                <td>
+                    <g:Label ui:field="hasVideoEncoderLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="hasInputMethodEditorRow">
+                <td>Has Input Method Editor</td>
+                <td>
+                    <g:Label ui:field="hasInputMethodEditorLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="hasMaxLevelIDCRow">
+                <td>Max Level IDC</td>
+                <td>
+                    <g:Label ui:field="hasMaxLevelIDCLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="playerTypeRow">
+                <td>Player Type</td>
+                <td>
+                    <g:Label ui:field="playerTypeLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="isDebuggerRow">
+                <td>Is Debugger</td>
+                <td>
+                    <g:Label ui:field="isDebuggerLabel"/>
+                </td>
+            </tr>
+            <tr ui:field="hasTlsRow">
+                <td>Has Transport Layer Security</td>
+                <td>
+                    <g:Label ui:field="hasTlsLabel"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="{style.anchorCell}" colspan="2"><g:Anchor ui:field="moreLessAnchor"></g:Anchor></td>
+            </tr>
+        </table>                 
+    </g:HTMLPanel>
+</ui:UiBinder>

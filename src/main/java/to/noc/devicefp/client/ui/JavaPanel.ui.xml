@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (C) 2013, Dmitry Holodov. All rights reserved.
+-->
+<ui:UiBinder    xmlns:ui="urn:ui:com.google.gwt.uibinder"
+                xmlns:g="urn:import:com.google.gwt.user.client.ui"
+                >
+    <ui:style>
+    </ui:style>
+
+    <g:HTMLPanel>
+        <table ui:field="javaValuesTable">            
+            <tr>
+                <td>Java Vendor</td>
+                <td><g:Label ui:field="javaVendorLabel"/></td>
+            </tr>                            
+            <tr>
+                <td>Vendor URL</td>
+                <td><g:Label ui:field="vendorUrlLabel"/></td>
+            </tr>
+            <tr>
+                <td>Java Version</td>
+                <td><g:Label ui:field="javaVersionLabel"/></td>
+            </tr>                            
+            <tr>
+                <td>OS Arch</td>
+                <td><g:Label ui:field="osArchLabel"/></td>
+            </tr>       
+            <tr>
+                <td>OS Name</td>
+                <td><g:Label ui:field="osNameLabel"/></td>
+            </tr>              
+            <tr>
+                <td>OS Version</td>
+                <td><g:Label ui:field="osVersionLabel"/></td>
+            </tr>                        
+        </table>
+        <g:Label ui:field="appletDidNotLoad"/>
+    </g:HTMLPanel>
+</ui:UiBinder>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (C) 2013, Dmitry Holodov. All rights reserved.
+-->
+<ui:UiBinder    xmlns:ui="urn:ui:com.google.gwt.uibinder"
+                xmlns:g="urn:import:com.google.gwt.user.client.ui"
+                xmlns:df="urn:import:to.noc.devicefp.client.ui"
+                >
+    <ui:style>
+    </ui:style>
+
+    <g:HTMLPanel>    
+        <table>                       
+            <tr>
+                <td>
+                    Latitude/Longitude 
+                    <img src="images/redPin-small.png" alt="red pin"/>
+                </td>                
+                <td><g:Label ui:field="latLongLabel"/></td>
+            </tr>                            
+            <tr>
+                <td>
+                    Accuracy Radius
+                    <img src="images/radius-small.png" alt="radius circle"/>
+                </td>                
+                <td><g:Label ui:field="accuracyRadiusLabel"/></td>
+            </tr>
+            <tr>
+                <td>Lookup Timestamp</td>
+                <td><df:TimeWithSelectableFormat ui:field="lookupTime"/></td>
+            </tr>
+            <tr>
+                <td colspan="2"><df:LocationMap ui:field="locationMap"/></td>
+            </tr>
+            <tr ui:field="continentRow">
+                <td>Continent</td>
+                <td><g:Label ui:field="continentLabel"/></td>
+            </tr>             
+            <tr ui:field="countryRow">
+                <td>Country (conf%)</td>
+                <td><g:Label ui:field="countryLabel"/></td>
+            </tr>       
+            <tr ui:field="regionRow">
+                <td>Region (conf%)</td>
+                <td><g:Label ui:field="regionLabel"/></td>
+            </tr>              
+            <tr ui:field="cityRow">
+                <td>City (conf%)</td>
+                <td><g:Label ui:field="cityLabel"/></td>
+            </tr>
+            <tr ui:field="areaCodeRow">
+                <td>Area Code</td>
+                <td><g:Label ui:field="areaCodeLabel"/></td>
+            </tr>
+            <tr ui:field="metroCodeRow">
+                <td>Metro Code</td>
+                <td><g:Label ui:field="metroCodeLabel"/></td>
+            </tr>
+            <tr ui:field="postalCodeRow">
+                <td>Postal Code (conf%)</td>
+                <td><g:Label ui:field="postalCodeLabel"/></td>
+            </tr>
+            <tr ui:field="timeZoneRow">
+                <td>Time Zone</td>
+                <td><g:Label ui:field="timeZoneLabel"/></td>
+            </tr>              
+            <tr ui:field="ispRow">
+                <td>ISP</td>
+                <td><g:Label ui:field="ispLabel"/></td>
+            </tr>  
+            <tr ui:field="orgRow">
+                <td>Organization</td>
+                <td><g:Label ui:field="orgLabel"/></td>
+            </tr>              
+            <tr ui:field="asNumRow">
+                <td>AS Number</td>
+                <td><g:Label ui:field="asNumLabel"/></td>
+            </tr>              
+            <tr ui:field="domainRow">
+                <td>Domain</td>
+                <td><g:Label ui:field="domainLabel"/></td>
+            </tr>   
+            <tr ui:field="netSpeedRow">
+                <td>Net Speed</td>
+                <td><g:Label ui:field="netSpeedLabel"/></td>
+            </tr>  
+            <tr ui:field="userTypeRow">
+                <td>User Type</td>
+                <td><g:Label ui:field="userTypeLabel"/></td>
+            </tr>              
+            <tr ui:field="errorRow">
+                <td>Error</td>
+                <td><g:Label ui:field="errorLabel"/></td>
+            </tr>               
+        </table>         
+    </g:HTMLPanel>
+</ui:UiBinder>

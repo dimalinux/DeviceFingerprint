@@ -1,0 +1,1 @@
+Copyright (C) 2013, Dmitry Holodov. All rights reserved.

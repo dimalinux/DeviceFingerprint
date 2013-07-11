@@ -1,0 +1,129 @@
+body {
+  /* These are in GWT's standard.css, but it gets injected after a delay. Putting
+   * them here too makes the startup smoother.
+  */
+  font-family: Arial Unicode MS, Arial, sans-serif;
+  font-size: small;
+}
+
+#outerDiv {
+    margin: 0.5em 1em;
+    min-width: 300px;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+#outlineDiv {
+    border-left:   1px solid #0025FA;
+    border-right:  1px solid #0025FA;
+    border-bottom: 1px solid #0025FA;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+#banner {
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 0.5em;
+    background-color: #2100FA;
+    padding: 0.5em 1em;
+    overflow: auto;
+}
+
+#bannerTitle {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: x-large;
+    text-shadow: 2px 2px 6px black;
+    font-weight: bold;
+}
+
+/* default font size on GWT's standard.css is small */
+h2 {
+    font-size: medium;
+}
+
+#loginWidget {
+    display: inline-block;
+    float: right;
+}
+
+#loginLogoutButton {
+}
+
+#userName {
+    color: #E0EDFE;
+    font-size: smaller;
+}
+
+#mainMenu {
+    background: #e3e8f3 url(/deviceFingerprint/gwt/standard/images/hborder.png) repeat-x 0px -2003px;
+    border: 1px solid #BBBBBB;
+    min-height: 1.25em;
+    padding: 0.2em;
+}
+
+#mainMenu a {
+    text-decoration: none;
+    color: #666666;
+    font-weight: bold;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+}
+
+#mainMenu a:hover {
+    background-color: #E0EDFE;
+}
+
+@media screen and (max-width: 30em) {
+    .wideScreenOnly {
+        display: none; /* shorten menu names on small screens */
+    }
+}
+
+#jsNotEnabled {
+    width: 20em;
+    color: red;
+    border: 1px solid red;
+    display: block;
+    margin: -3em auto 2em auto;
+    padding: 1em;
+}
+
+#gwtStart {
+    padding: 0.5em;
+}
+
+#loadingImg {
+    display: block;
+    margin: 4em auto;
+}
+
+.currentMenuItem {
+    border: 1px solid #0025FA;
+}
+
+body > footer {
+    text-align: center;
+}
+
+ul.breadcrumbs {
+    list-style: none;
+    display: table;
+    table-layout: fixed;
+    width: 80%;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+}
+
+ul.breadcrumbs li {
+    display: table-cell;
+    text-align: center;
+}

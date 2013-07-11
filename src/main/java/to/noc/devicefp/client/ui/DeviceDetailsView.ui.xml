@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (C) 2013, Dmitry Holodov. All rights reserved.
+-->
+<ui:UiBinder    xmlns:ui="urn:ui:com.google.gwt.uibinder"
+                xmlns:g="urn:import:com.google.gwt.user.client.ui"
+                xmlns:df="urn:import:to.noc.devicefp.client.ui"
+                >
+    <ui:style>
+
+        @external .gwt-DisclosurePanel .gwt-DisclosurePanel-open .content;
+
+        div.openCloseIcon {
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAfklEQVR42mNgoDZITk4WosiAtLS0M6mpqb1Amp9cAy4B8X8gfpWenp5MiQEwfB6IbSgxAIaXArEcJQaA8Ddg+NQVFhZykmsADG8MDQ1lJseA5wQDFocBP0FRm5WVxUNOGGwEJi4VcmLhKtC5HuSkg8NA5+bjDCRCAG8UDUoAAIw8kVdwMG+3AAAAAElFTkSuQmCC);
+            background-position: 0px 0px;
+            background-repeat: no-repeat no-repeat;
+            width: 16px;
+            height: 16px;
+            margin-right: 0.5em;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        table.gwt-DisclosurePanel-open > tbody > tr > td > a > div > div.openCloseIcon {
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAjUlEQVR42mNgGD6gsLCQMy0t7TAQXyICn0lOThbCMCQ1NTUfKPmfEAaq68XqitDQUGaggqsEDHgFxPw4vZKenu6BzwCgfDLB8AAq3IjDgPNEBSgwgFSAin9iMcCG6FgBBRSa5qUkRWtWVhYPUNNzqOZvQCxHctoABRg02urITmCgAAUlMrINAKWNwZ2HAAhGkVd3k7/tAAAAAElFTkSuQmCC);
+        }
+
+        .sectionTitle {
+             margin: 0px;
+             display: inline-block;
+        }
+
+        table.gwt-DisclosurePanel {
+            width: 100%;
+            margin-bottom: 1.2em;
+        }
+
+        table.gwt-DisclosurePanel-open > tbody > tr > td > div > div.content {
+            border-left: none !important;
+        }
+
+        table.gwt-DisclosurePanel-open > tbody > tr > td > div > div.content > table {
+            width: 100%;
+        }
+
+        /* Labels (black, bold and non-wrapping) */
+        table.gwt-DisclosurePanel-open > tbody > tr > td > div > div.content > table > tbody > tr > td:first-child {
+            margin-bottom: 0.2em;
+            white-space: nowrap;
+            color: #000000;
+            font-weight: bold;
+            padding-right: 1em;
+        }
+
+        /* Values (blue, non-bold and wrapping) */
+        table.gwt-DisclosurePanel-open > tbody > tr > td > div > div.content > table > tbody > tr > td:first-child + td {
+            width: 100%;
+            word-wrap: break-word;
+            color: #0B0B61;
+        }
+
+        /* geo marker images and UA browser/os images */
+        table.gwt-DisclosurePanel-open > tbody > tr > td > div > div.content > table > tbody > tr > td:first-child > img {
+            vertical-align: text-bottom;
+        }
+
+        ol {
+            -webkit-padding-start: 20px;
+            -moz-padding-start: 20px;
+
+            -webkit-margin-before: 0em;
+            -moz-margin-before: 0em;
+
+            -webkit-margin-after: em;
+            -moz-margin-after: em;
+        }
+
+        .topControlButtons {
+            right: 1.8em;
+            position: absolute;
+        }
+
+        .topControlButtons > button:first-child {
+            margin-right: 0.5em;
+            padding-left: 2px; /* GWT default is 3px */
+            padding-right: 2px;
+        }
+
+    </ui:style>
+
+    <g:HTMLPanel>
+
+        <div class="{style.topControlButtons}">
+            <g:Button ui:field="openOrCloseAllSectionsButton" enabled="false">-</g:Button>
+            <g:Button ui:field="deleteButton" enabled="false">-</g:Button>
+        </div>
+
+        <g:DisclosurePanel ui:field="summarySection" open="true">
+            <g:customHeader>
+                <g:HTML>
+                    <div class="{style.openCloseIcon}"></div>
+                    <h2 class="{style.sectionTitle}">Summary</h2>
+                </g:HTML>
+            </g:customHeader>
+            <df:SummaryPanel ui:field="summaryPanel"/>
+        </g:DisclosurePanel>
+
+        <g:DisclosurePanel ui:field="zombieCookieSection" >
+            <g:customHeader>
+                <g:HTML>
+                    <div class="{style.openCloseIcon}"></div>
+                    <h2 class="{style.sectionTitle}">Zombie Cookie</h2>
+                </g:HTML>
+            </g:customHeader>
+            <df:ZombieCookiePanel ui:field="zombieCookiePanel"/>
+        </g:DisclosurePanel>
+
+        <g:DisclosurePanel ui:field="browserLocationSection"  visible="false">
+            <g:customHeader>
+                <g:HTML>
+                    <div class="{style.openCloseIcon}"></div>
+                    <h2 class="{style.sectionTitle}">Browser Geolocation</h2>
+                </g:HTML>
+            </g:customHeader>
+            <df:BrowserLocationPanel ui:field="browserLocationPanel"/>
+        </g:DisclosurePanel>
+
+        <g:DisclosurePanel ui:field="maxMindSection" >
+            <g:customHeader>
+                <g:HTML>
+                    <div class="{style.openCloseIcon}"></div>
+                    <h2 class="{style.sectionTitle}">IP Geolocation (MaxMind)</h2>
+                </g:HTML>
+            </g:customHeader>
+            <df:MaxMindPanel ui:field="maxMindPanel"/>
+        </g:DisclosurePanel>
+
+        <g:DisclosurePanel ui:field="jsSection">
+            <g:customHeader>
+                <g:HTML>
+                    <div class="{style.openCloseIcon}"></div>
+                    <h2 class="{style.sectionTitle}">Javascript Data</h2>
+                </g:HTML>
+            </g:customHeader>
+            <df:JsPanel ui:field="jsPanel"/>
+        </g:DisclosurePanel>
+
+        <g:DisclosurePanel ui:field="displaySection">
+            <g:customHeader>
+                <g:HTML>
+                    <div class="{style.openCloseIcon}"></div>
+                    <h2 class="{style.sectionTitle}">JS Display Data</h2>
+                </g:HTML>
+            </g:customHeader>
+            <df:DisplayPanel ui:field="displayPanel"/>
+        </g:DisclosurePanel>
+
+        <g:DisclosurePanel ui:field="requestHeadersSection">
+            <g:customHeader>
+                <g:HTML>
+                    <div class="{style.openCloseIcon}"></div>
+                    <h2 class="{style.sectionTitle}">Request Headers</h2>
+                </g:HTML>
+            </g:customHeader>
+            <df:RequestHeadersPanel ui:field="requestHeadersPanel"/>
+        </g:DisclosurePanel>
+
+        <g:DisclosurePanel ui:field="silverlightSection" visible="false">
+            <g:customHeader>
+                <g:HTML>
+                    <div class="{style.openCloseIcon}"></div>
+                    <h2 class="{style.sectionTitle}">Silverlight Plugin Data</h2>
+                </g:HTML>
+            </g:customHeader>
+            <df:SilverlightPanel ui:field="silverlightPanel"/>
+        </g:DisclosurePanel>
+
+        <g:DisclosurePanel ui:field="javaSection" visible="false">
+            <g:customHeader>
+                <g:HTML>
+                    <div class="{style.openCloseIcon}"></div>
+                    <h2 class="{style.sectionTitle}">Java Plugin Data</h2>
+                </g:HTML>
+            </g:customHeader>
+            <df:JavaPanel ui:field="javaPanel"/>
+        </g:DisclosurePanel>
+
+        <g:DisclosurePanel ui:field="flashSection" visible="false">
+            <g:customHeader>
+                <g:HTML>
+                    <div class="{style.openCloseIcon}"></div>
+                    <h2 class="{style.sectionTitle}">Flash Plugin Data</h2>
+                </g:HTML>
+            </g:customHeader>
+            <df:FlashPanel ui:field="flashPanel"/>
+        </g:DisclosurePanel>
+
+        <g:DisclosurePanel ui:field="tcpSynSection">
+            <g:customHeader>
+                <g:HTML>
+                    <div class="{style.openCloseIcon}"></div>
+                    <h2 class="{style.sectionTitle}">TCP SYN Packet Signature</h2>
+                </g:HTML>
+            </g:customHeader>
+            <df:TcpSynPanel ui:field="tcpSynPanel"/>
+        </g:DisclosurePanel>
+
+        <g:DisclosurePanel ui:field="dnsSection">
+            <g:customHeader>
+                <g:HTML>
+                    <div class="{style.openCloseIcon}"></div>
+                    <h2 class="{style.sectionTitle}">DNS Data</h2>
+                </g:HTML>
+            </g:customHeader>
+            <df:DnsPanel ui:field="dnsPanel"/>
+        </g:DisclosurePanel>
+
+        <g:DisclosurePanel ui:field="pluginSection">
+            <g:customHeader>
+                <g:HTML>
+                    <div class="{style.openCloseIcon}"></div>
+                    <h2 class="{style.sectionTitle}">Navigator Plugin List</h2>
+                </g:HTML>
+            </g:customHeader>
+            <df:PluginsPanel ui:field="pluginsPanel"/>
+        </g:DisclosurePanel>
+
+    </g:HTMLPanel>
+</ui:UiBinder>

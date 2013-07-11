@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (C) 2013, Dmitry Holodov. All rights reserved.
+-->
+<ui:UiBinder    xmlns:ui="urn:ui:com.google.gwt.uibinder"
+                xmlns:g="urn:import:com.google.gwt.user.client.ui"
+                >
+    <ui:style>
+    </ui:style>
+
+    <g:SimplePanel ui:field="simplePanel">
+        <!-- dynamically created request headers table inserted here -->
+    </g:SimplePanel>
+</ui:UiBinder>

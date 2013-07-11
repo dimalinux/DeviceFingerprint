@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (C) 2013, Dmitry Holodov. All rights reserved.
+-->
+<ui:UiBinder    xmlns:ui="urn:ui:com.google.gwt.uibinder"
+                xmlns:g="urn:import:com.google.gwt.user.client.ui"
+                >
+    <ui:style>
+    </ui:style>
+
+    <g:HTMLPanel>
+        <table>            
+            <tr>
+                <td>IP Time to Live (rec&apos;d)</td>
+                <td>
+                    <g:Label ui:field="receivedTimeToLiveLabel"/>
+                </td>
+            </tr>                            
+            <tr>
+                <td>IP Type of Service</td>
+                <td>
+                    <g:Label ui:field="ipTypeOfServiceLabel"/>
+                </td>
+            </tr>
+            <tr>
+                <td>IP Total Length</td>
+                <td>
+                    <g:Label ui:field="ipTotalLengthLabel"/>
+                </td>
+            </tr>                            
+            <tr>
+                <td>IP Flags</td>
+                <td>
+                    <g:Label ui:field="ipFlagsLabel"/>
+                </td>
+            </tr>       
+            <tr>
+                <td>TCP Flags</td>
+                <td>
+                    <g:Label ui:field="tcpFlagsLabel"/>
+                </td>
+            </tr>              
+            <tr>
+                <td>TCP Window Size</td>
+                <td>
+                    <g:Label ui:field="tcpWindowSizeLabel"/>
+                </td>
+            </tr>
+            <tr>
+                <td>TCP Options</td>
+                <td>
+                    <g:SimplePanel ui:field="tcpOptionsPanel"/>
+                </td>
+            </tr>           
+        </table>                 
+    </g:HTMLPanel>
+</ui:UiBinder>
+
+
+
+
+
+
+
+
+
+
+
