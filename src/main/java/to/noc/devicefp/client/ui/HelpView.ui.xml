@@ -111,7 +111,10 @@
 
         <h2 id="Help:Purpose">Purpose</h2>
         <p class='{style.sectionDesc}'>
-            I was curious what information my browser was leaking to websites, so I wrote a website to figure it out.
+            I was curious what information my browser was leaking to websites, so I
+            wrote a website to figure it out. The
+            <a href="https://github.com/dimalinux/DeviceFingerprint">source code</a>
+            is published on Github for educational purposes.
             Below are details on all fields gathered and displayed.
         </p>
 
