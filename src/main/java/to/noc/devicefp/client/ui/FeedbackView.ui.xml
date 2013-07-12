@@ -32,10 +32,12 @@
 
     <g:HTMLPanel>
         <div class="{style.message}">
-            Your feedback is appreciated!  You can also send me
+            Your feedback is appreciated!  You can also send
             <a href="http://www.google.com/recaptcha/mailhide/d?k=01Q1BGgC8sBWOiNjWHgCT8xg==&amp;c=1d3HOTDsshXPJSdauwlMCjp8i7NhS1vWhCikx8egf5U="
                onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\07501Q1BGgC8sBWOiNjWHgCT8xg\75\75\46c\0751d3HOTDsshXPJSdauwlMCjp8i7NhS1vWhCikx8egf5U\075'); return false;"
-               title="Show address">email</a>.
+               title="Show address">email</a> or use
+               <a href="https://github.com/dimalinux/DeviceFingerprint/issues" target="_blank">Github's issue tracking</a>
+               to report problems and make feature requests.
         </div>
 
         <div class="{style.textAreaPadding}">
