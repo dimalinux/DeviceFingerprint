@@ -6,6 +6,7 @@ package to.noc.devicefp.server.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.view.JstlView;
  */
 @Configuration
 @EnableWebMvc
+@Import({PropertiesConfig.class})
 @ComponentScan(basePackages = "to.noc.devicefp.server.controller")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
