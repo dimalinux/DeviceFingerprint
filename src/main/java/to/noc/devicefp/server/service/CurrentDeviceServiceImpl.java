@@ -371,13 +371,14 @@ public class CurrentDeviceServiceImpl extends AbstractCookieStatesUpdater implem
 
     @Transactional
     private synchronized void setServerEndStamp() {
-        if (currentDevice != null) {
+        // Server end stamp may have already been set by the windowClosed()
+        if (currentDevice != null && currentDevice.getServerEndStamp() == null) {
             ensureAttached();
             currentDevice.setServerEndStamp(new Date());
         }
     }
 
-    // result intended for logging purposes
+    // result is used for logging
     @Override
     public synchronized String getClientInfo() {
         return currentDevice != null ?
