@@ -46,8 +46,8 @@ public class RobotsController {
             mapTo = "robotsDnsLinkOnly";
         }
 
-        log.debug("RobotsController called, reqHost={} remoteIp={} mapTo={}",
-                requestHost, remoteIp, mapTo);
+        log.debug("RobotsController called, reqHost={} prodHost={} remoteIp={} mapTo={}",
+                requestHost, productionHost, remoteIp, mapTo);
 
         return mapTo;
     }
