@@ -26,6 +26,11 @@ public final class UserAgentDataJso extends JavaScriptObject implements UserAgen
     }-*/;
 
     @Override
+    public native String getUaDevice()/*-{
+        return this.uaDevice;
+    }-*/;
+
+    @Override
     public native String getUaIcon()/*-{
         return this.uaIcon;
     }-*/;
