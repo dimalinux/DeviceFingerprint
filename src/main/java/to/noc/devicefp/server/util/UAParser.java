@@ -51,7 +51,7 @@ public class UAParser {
     }
 
 
-    public static UserAgentData convert(ReadableUserAgent ua, String uaString) {
+    private static UserAgentData convert(ReadableUserAgent ua, String uaString) {
         UserAgentData uaData = new UserAgentData();
 
         uaData.setType(unknownToNull(ua.getTypeName()));
@@ -81,7 +81,7 @@ public class UAParser {
                 uaData.setUaDevice(parseAndroidDeviceName(uaString));
             }
         }
-        
+
         return uaData;
     }
 
