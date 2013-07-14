@@ -8,13 +8,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import net.sf.uadetector.OperatingSystem;
-import net.sf.uadetector.ReadableUserAgent;
 
 
 @Entity
 @Table(name="user_agent")
 public class UserAgentData extends DeviceFkAsPk implements Serializable {
+
+    public static final int  MAX_DEVICE_LEN = 120;
 
     @Size(max = 120)
     @Column(length = 120)
@@ -52,6 +52,10 @@ public class UserAgentData extends DeviceFkAsPk implements Serializable {
     @Column(length = 120)
     private String uaInfoUrl;
 
+    @Size(max = MAX_DEVICE_LEN)
+    @Column(length = MAX_DEVICE_LEN)
+    private String uaDevice;
+
     @Size(max = 120)
     @Column(length = 120)
     private String osFamily;
@@ -79,39 +83,6 @@ public class UserAgentData extends DeviceFkAsPk implements Serializable {
     @Size(max = 120)
     @Column(length = 120)
     private String osIcon;
-
-    public UserAgentData() {
-
-    }
-
-    public UserAgentData(ReadableUserAgent ua) {
-        type = unkToNull(ua.getTypeName());
-        uaFamily = unkToNull(ua.getFamily().toString());
-        uaName = unkToNull(ua.getName());
-        uaVersion = emptyToNull(ua.getVersionNumber().toVersionString());
-        uaUrl = unkToNull(ua.getProducerUrl());
-        uaCompany = unkToNull(ua.getProducer());
-        uaCompanyUrl = unkToNull(ua.getProducerUrl());
-        uaIcon = unkToNull(ua.getIcon());
-        uaInfoUrl = unkToNull(ua.getUrl());
-
-        OperatingSystem os = ua.getOperatingSystem();
-        osFamily = unkToNull(os.getFamily().toString());
-        osName = unkToNull(os.getName());
-        osVersion = emptyToNull(os.getVersionNumber().toVersionString());
-        osUrl = unkToNull(os.getUrl());
-        osCompany = unkToNull(os.getProducer());
-        osCompanyUrl = unkToNull(os.getProducerUrl());
-        osIcon = unkToNull(os.getIcon());
-    }
-
-    static private String unkToNull(String value) {
-        return !"unknown".equalsIgnoreCase(value) ? value : null;
-    }
-
-    static private String emptyToNull(String value) {
-        return value.length() > 0 ? value : null;
-    }
 
     public String getType() {
         return type;
@@ -183,6 +154,14 @@ public class UserAgentData extends DeviceFkAsPk implements Serializable {
 
     public void setUaInfoUrl(String uaInfoUrl) {
         this.uaInfoUrl = uaInfoUrl;
+    }
+
+    public String getUaDevice() {
+        return uaDevice;
+    }
+
+    public void setUaDevice(String uaDevice) {
+        this.uaDevice = uaDevice;
     }
 
     public String getOsFamily() {
