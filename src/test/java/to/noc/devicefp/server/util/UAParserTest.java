@@ -34,6 +34,12 @@ public class UAParserTest {
     }
 
     @Test
+    public void test_parseAndroidDeviceName_variant5() {
+        String uaString = "Mozilla/5.0 (Linux; Android 4.0.3; Transformer TF101 Build/IML74K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.64 Safari/537.36";
+        assertEquals("Transformer TF101", UAParser.parseAndroidDeviceName(uaString));
+    }
+
+    @Test
     public void test_parseAndroidDeviceName_truncate() {
         String uaString = "Mozilla/5.0 (Linux; U; Android 4.1.2; en-au; 01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30";
         assertEquals(UserAgentData.MAX_DEVICE_LEN, UAParser.parseAndroidDeviceName(uaString).length());
