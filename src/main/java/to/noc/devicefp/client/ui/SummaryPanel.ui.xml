@@ -13,7 +13,7 @@
     </ui:style>
 
     <g:HTMLPanel>
-        <table>            
+        <table>
             <tr ui:field="publicHostnameRow">
                 <td>Public Hostname</td>
                 <td>
@@ -72,8 +72,14 @@
             <tr ui:field="uaOperatingSystemRow">
                 <td>UA Operating System</td>
                 <td>
-                    <span ui:field='uaOperatingSystemSpan'/>                    
-                    <img ui:field="uaOperatingSystemIcon" class="{style.uaIcon}" alt="OS icon"/>                 
+                    <span ui:field='uaOperatingSystemSpan'/>
+                    <img ui:field="uaOperatingSystemIcon" class="{style.uaIcon}" alt="OS icon"/>
+                </td>
+            </tr>
+            <tr ui:field="uaDeviceRow">
+                <td>UA Device</td>
+                <td>
+                    <span ui:field='uaDeviceSpan'/>
                 </td>
             </tr>
             <tr ui:field="processorCoresRow">
@@ -111,7 +117,7 @@
                 <td>
                     <df:TimeWithSelectableFormat ui:field="serverEndTimestamp"/>
                 </td>
-            </tr>            
+            </tr>
             <tr ui:field="clientStartTimestampRow">
                 <td>Client Timestamp</td>
                 <td>
@@ -123,7 +129,7 @@
                 <td>
                     <df:TimeWithSelectableFormat ui:field="clientWindowCloseTimestamp"/>
                 </td>
-            </tr>                                   
-        </table>                 
+            </tr>
+        </table>
     </g:HTMLPanel>
 </ui:UiBinder>
