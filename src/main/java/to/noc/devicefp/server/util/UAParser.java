@@ -23,11 +23,12 @@ public class UAParser {
     // Mozilla/5.0 (Linux; U; Android 4.2.1; en-ca; Galaxy Nexus Build/JOP40D; CyanogenMod-10.1) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30
     // Mozilla/5.0 (Linux; U; Android 4.1.2; en-au; Galaxy Nexus Build/JZO54K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30
     // Mozilla/5.0 (Linux; U; Android 2.3.6; en-us; LGL35G/V100) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1
+    // Mozilla/5.0 (Linux; Android 4.0.3; Transformer TF101 Build/IML74K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.64 Safari/537.36
     //
     private static Pattern androidDevPattern = Pattern.compile(
             // Matched pattern will include any "Build/..." text.  We strip it later
             // to keep the regular expression comprehendable.
-            "Mozilla/5.0 \\(Linux;(?: U;)? Android [0-9,.]+; [a-z-]+; ([^;)]+).*"
+            "Mozilla/5.0 \\(Linux;(?: U;)? Android [0-9.]+;(?: [a-z]{2}-[a-z]{2};)? ([^;)]+).*"
     );
 
     // Know IOS Syntax variations:
