@@ -9,17 +9,18 @@ public interface UserAgentDataCs {
     public String getUaIcon();
     public String getUaFamily();
     public String getUaVersion();
+    public String getUaDevice();
     //public String getType();
     //public String getUaUrl();
     //public String getUaCompany();
     //public String getUaCompanyUrl();
 
     //public String getUaInfoUrl();
-    
+
     public String getOsFamily();
     public String getOsVersion();
     public String getOsName();
-    public String getOsIcon();    
+    public String getOsIcon();
     //public String getOsUrl();
     //public String getOsCompany();
     //public String getOsCompanyUrl();
