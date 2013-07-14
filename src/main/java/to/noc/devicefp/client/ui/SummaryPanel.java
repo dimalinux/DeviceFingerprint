@@ -54,6 +54,9 @@ public class SummaryPanel extends Composite implements IsWidget {
     @UiField SpanElement uaOperatingSystemSpan;
     @UiField ImageElement uaOperatingSystemIcon;
 
+    @UiField TableRowElement uaDeviceRow;
+    @UiField SpanElement uaDeviceSpan;
+
     @UiField TableRowElement processorCoresRow;
     @UiField SpanElement processorCoresSpan;
 
@@ -179,27 +182,53 @@ public class SummaryPanel extends Composite implements IsWidget {
         setSpan(refererRow, refererSpan, referer);
     }
 
-    private void setUserAgentSpans(UserAgentDataCs userAgentData) {
-        String uaName = (userAgentData != null) ? userAgentData.getUaName() : null;
-        boolean isUaNameVisible = uaName != null;
-        if (isUaNameVisible) {
-            String uaVersion = userAgentData.getUaVersion();
-            if (uaVersion != null) {
-                uaName += " " + uaVersion;
-            }
-            uaBrowserSpan.setInnerText(uaName);
-            uaBrowserIcon.setSrc("images/ua/browser/" + userAgentData.getUaIcon());
-        }
-        UIObject.setVisible(uaBrowserRow, isUaNameVisible);
 
-        String uaOsName = (userAgentData != null) ? userAgentData.getOsName() : null;
-        boolean isUaOsNameVisible = uaOsName != null;
-        if (isUaOsNameVisible) {
-            uaOperatingSystemSpan.setInnerText(uaOsName);
-            uaOperatingSystemIcon.setSrc("images/ua/os/" + userAgentData.getOsIcon());
+    private void setUserAgentSpans(UserAgentDataCs userAgentData) {
+        boolean isUaNameVisible = false;
+        boolean isUaOsNameVisible = false;
+        boolean isUaDeviceVisible = false;
+
+        if (userAgentData != null) {
+
+            String uaName = userAgentData.getUaName();
+            if (uaName != null) {
+                isUaNameVisible = true;
+                String uaVersion = userAgentData.getUaVersion();
+                if (uaVersion != null) {
+                    uaName += " " + uaVersion;
+                }
+                uaBrowserSpan.setInnerText(uaName);
+                String uaIcon = userAgentData.getUaIcon();
+                if (uaIcon == null || uaIcon.isEmpty()) {
+                    uaIcon = "unknown.png";
+                }
+                uaBrowserIcon.setSrc("images/ua/browser/" + uaIcon);
+            }
+
+            String uaOsName = userAgentData.getOsName();
+            if (uaOsName != null) {
+                isUaOsNameVisible = true;
+                uaOperatingSystemSpan.setInnerText(uaOsName);
+                String osIcon = userAgentData.getOsIcon();
+                if (osIcon == null || osIcon.isEmpty()) {
+                    osIcon = "unknown.png";
+                }
+                uaOperatingSystemIcon.setSrc("images/ua/os/" + osIcon);
+            }
+
+            String uaDevice = userAgentData.getUaDevice();
+            if (uaDevice != null) {
+                isUaDeviceVisible = true;
+                uaDeviceSpan.setInnerText(uaDevice);
+            }
+
         }
+
+        UIObject.setVisible(uaBrowserRow, isUaNameVisible);
         UIObject.setVisible(uaOperatingSystemRow, isUaOsNameVisible);
+        UIObject.setVisible(uaDeviceRow, isUaDeviceVisible);
     }
+
 
     private void setDnsSpan(DnsDataCs dnsData) {
 
