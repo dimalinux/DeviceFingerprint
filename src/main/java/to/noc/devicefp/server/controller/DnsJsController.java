@@ -77,11 +77,7 @@ public class DnsJsController {
     @Autowired
     private CurrentDeviceService currentDeviceService;
 
-    /*
-     * We want to ban indexing on anything but our primary domain name. If the
-     * client is *not* comming in on productionHost (i.e. noc.to), we serve a
-     * robots.txt file that disallows everything.
-     */
+
     @RequestMapping(value = "/dns", method = RequestMethod.GET)
     public String showDnsData(
             @RequestHeader(value = "Host", required = true) String requestHost,
