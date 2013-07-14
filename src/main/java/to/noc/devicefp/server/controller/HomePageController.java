@@ -12,8 +12,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import net.sf.uadetector.UserAgentStringParser;
-import net.sf.uadetector.service.UADetectorServiceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +27,11 @@ import static to.noc.devicefp.server.util.IpUtil.*;
 import static to.noc.devicefp.server.util.ETagUtil.*;
 import to.noc.devicefp.server.util.StopWatch;
 import to.noc.devicefp.server.domain.entity.Device;
-import to.noc.devicefp.server.domain.entity.UserAgentData;
 import to.noc.devicefp.server.service.CurrentDeviceService;
 import to.noc.devicefp.server.service.CurrentUserService;
 import to.noc.devicefp.server.service.MaxMindService;
 import to.noc.devicefp.server.service.TcpdumpService;
+import to.noc.devicefp.server.util.UAParser;
 import static to.noc.devicefp.shared.CookieDefs.DEVICE_COOKIE_NAME;
 import static to.noc.devicefp.shared.CookieDefs.DEVICE_COOKIE_MAX_AGE_SECONDS;
 
@@ -43,11 +41,6 @@ public class HomePageController {
     private static final Logger log = LoggerFactory.getLogger(HomePageController.class);
 
     public static final String REQUEST_FACTORY_URL = "gwtRequest";
-
-    private static UserAgentStringParser uaParser;
-    static {
-        uaParser = UADetectorServiceFactory.getCachingAndUpdatingParser();
-    }
 
     @Autowired private TcpdumpService tcpdumpService;
     @Autowired private CurrentUserService currentUserService;
@@ -110,7 +103,7 @@ public class HomePageController {
         device.setRemotePort(request.getRemotePort());
 
         device.setRequestHost(requestHost);
-        device.setUserAgentData(new UserAgentData(uaParser.parse(userAgent)));
+        device.setUserAgentData(UAParser.parse(userAgent));
 
         Enumeration allHeaderNames = request.getHeaderNames();
         while (allHeaderNames.hasMoreElements()) {
@@ -233,6 +226,7 @@ public class HomePageController {
                     "userAgentData.uaName",
                     "userAgentData.uaFamily",
                     "userAgentData.uaVersion",
+                    "userAgentData.uaDevice",
                     "userAgentData.uaIcon",
                     "userAgentData.osName",
                     "userAgentData.osFamily",
