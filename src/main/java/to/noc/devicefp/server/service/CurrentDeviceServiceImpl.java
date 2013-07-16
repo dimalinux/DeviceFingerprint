@@ -10,7 +10,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -28,7 +27,7 @@ import static to.noc.devicefp.shared.CookieDefs.DEVICE_COOKIE_NAME;
 
 @Service /* Spring service */
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class CurrentDeviceServiceImpl extends AbstractCookieStatesUpdater implements DisposableBean, CurrentDeviceService {
+public class CurrentDeviceServiceImpl extends AbstractCookieStatesUpdater implements CurrentDeviceService {
 
     private enum SpecialCookieType { FLASH, WEB_STORAGE };
 
@@ -386,12 +385,4 @@ public class CurrentDeviceServiceImpl extends AbstractCookieStatesUpdater implem
                 ipWithHostName(RequestFactoryServlet.getThreadLocalRequest().getRemoteAddr());
     }
 
-    @Override
-    public void destroy() throws Exception {
-        try {
-            setServerEndStamp();
-        } catch (Throwable ex) {
-            log.error("exception setting server end stamp", ex);
-        }
-    }
 }
