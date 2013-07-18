@@ -24,9 +24,9 @@ public class CurrentUserServiceImpl implements CurrentUserService {
 
     @Autowired private OpenIdUserRepository userRepository;
 
-
+    @Override
     @PostConstruct
-    public void loadUser() {
+    public synchronized void loadUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String openId = auth.getName();
 
@@ -45,32 +45,32 @@ public class CurrentUserServiceImpl implements CurrentUserService {
 
 
     @Override
-    public Long getUserId() {
+    public synchronized Long getUserId() {
         return currentUser.getId();
     }
 
     @Override
-    public boolean isAnonymous() {
+    public synchronized boolean isAnonymous() {
         return currentUser.isAnonymous();
     }
 
     @Override
-    public boolean isAuthenticated() {
+    public synchronized boolean isAuthenticated() {
         return !isAnonymous();
     }
 
     @Override
-    public boolean isAdmin() {
+    public synchronized boolean isAdmin() {
         return currentUser.isAdmin();
     }
 
     @Override
-    public String getFullName() {
+    public synchronized String getFullName() {
         return currentUser.getFullName();
     }
 
     @Override
-    public String getEmail() {
+    public synchronized String getEmail() {
         return currentUser.getEmail();
     }
 }
