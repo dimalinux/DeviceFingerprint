@@ -5,14 +5,11 @@ package to.noc.devicefp.server.service;
 
 import java.util.Date;
 import java.util.List;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import to.noc.devicefp.server.domain.entity.*;
 
 
 public interface CurrentDeviceService {
 
-    @Transactional(propagation = Propagation.MANDATORY)
     Device fixateNewDevice(Device newDevice, String existingPlainCookieId, String etagId);
 
     String getClientInfo();
