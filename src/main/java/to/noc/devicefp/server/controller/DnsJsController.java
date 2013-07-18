@@ -98,7 +98,7 @@ public class DnsJsController {
         } else {
             log.error("showDnsData called without a current device: " +
                         "reqHost={} clienIp={} devCookie={}",
-                    requestHost, request.getRemoteAddr(), deviceCookieId);
+                    requestHost, ipWithHostName(request.getRemoteAddr()), deviceCookieId);
         }
 
         StringBuilder sb = new StringBuilder();
