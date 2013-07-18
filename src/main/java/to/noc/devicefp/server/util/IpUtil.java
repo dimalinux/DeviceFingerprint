@@ -100,4 +100,10 @@ public class IpUtil {
                         hostName != null ? hostName : "NO_DNS"
                     ).toString();
     }
+
+    public static boolean isGoogleBot(String ipAddress) {
+        String hostName = ipToHostName(ipAddress);
+        return hostName != null ? hostName.endsWith(".googlebot.com") : false;
+    }
+
 }
