@@ -16,14 +16,15 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.WebUtils;
 import static to.noc.devicefp.server.util.IpUtil.ipWithHostName;
 import static to.noc.devicefp.server.util.IpUtil.ipToHostName;
 import to.noc.devicefp.server.domain.entity.*;
 import to.noc.devicefp.server.domain.repository.DeviceRepository;
 import to.noc.devicefp.server.domain.repository.OpenIdUserRepository;
 import to.noc.devicefp.server.domain.repository.ZombieCookieRepository;
-import to.noc.devicefp.shared.CookieType;
 import static to.noc.devicefp.shared.CookieDefs.DEVICE_COOKIE_NAME;
+import to.noc.devicefp.shared.CookieType;
 
 @Service /* Spring service */
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -158,7 +159,7 @@ public class CurrentDeviceServiceImpl extends AbstractCookieStatesUpdater implem
 
             if (updateJs) {
                 currentDevice.setJsData(jsData);
-                updateCookieStates(jsData, wasDeviceCookieSent());
+                updateCookieStates(jsData, wasDeviceCookieInRequest());
                 updateCookieStates(CookieType.WEB_STORAGE, webStorageCookieId);
             }
             if (updateDisplay) {
@@ -295,16 +296,9 @@ public class CurrentDeviceServiceImpl extends AbstractCookieStatesUpdater implem
         return cookie;
     }
 
-    private boolean wasDeviceCookieSent() {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie c : request.getCookies()) {
-                if (DEVICE_COOKIE_NAME.equals(c.getName())) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    private boolean wasDeviceCookieInRequest() {
+        Cookie requestCookie = WebUtils.getCookie(request, DEVICE_COOKIE_NAME);
+        return requestCookie != null ? true : false;
     }
 
     @Override
