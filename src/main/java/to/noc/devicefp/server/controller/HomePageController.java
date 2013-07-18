@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,8 +55,10 @@ public class HomePageController {
     private final static class NotFoundException extends RuntimeException {
     }
 
+    /*  _escaped_fragment_ handling for search engines is performed in
+     *  AjaxCrawlController.
+     */
     @RequestMapping(value = "/", params = "!_escaped_fragment_", method = RequestMethod.GET)
-    @Transactional
     public String showLandingPage(
             @CookieValue(value=DEVICE_COOKIE_NAME, required=false)
             String existingCookieId,
