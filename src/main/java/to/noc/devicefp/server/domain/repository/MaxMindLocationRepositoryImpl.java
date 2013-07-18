@@ -41,7 +41,7 @@ public class MaxMindLocationRepositoryImpl implements MaxMindLocationRepositoryC
             result = (MaxMindLocation) query.getSingleResult();
         } catch(NoResultException|EmptyResultDataAccessException ex) {
             log.debug("{}: getLatestAfterDate(ipAddress={}, afterTimestamp={})",
-                    ex.getClass().getSimpleName(), afterTimestamp);
+                    ex.getClass().getSimpleName(), ipAddress, afterTimestamp);
         }
 
         return result;
