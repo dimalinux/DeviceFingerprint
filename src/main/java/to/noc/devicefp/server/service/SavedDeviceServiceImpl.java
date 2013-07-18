@@ -6,16 +6,21 @@ package to.noc.devicefp.server.service;
 import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.WebUtils;
 import to.noc.devicefp.server.domain.entity.Device;
 import to.noc.devicefp.server.domain.entity.RequestHeader;
 import to.noc.devicefp.server.domain.entity.ZombieCookie;
 import to.noc.devicefp.server.domain.repository.DeviceRepository;
+import static to.noc.devicefp.server.util.IpUtil.*;
+import static to.noc.devicefp.shared.CookieDefs.DEVICE_COOKIE_NAME;
 
 @Service /* Spring service */
 public class SavedDeviceServiceImpl implements SavedDeviceService {
@@ -24,13 +29,22 @@ public class SavedDeviceServiceImpl implements SavedDeviceService {
     @Autowired private DeviceRepository deviceRepository;
     @Autowired private CurrentUserService currentUserService;
     @Autowired private CurrentDeviceService currentDeviceService;
-
+    @Autowired private HttpServletRequest request;
 
     private String getCookieId() {
         String cookieId = currentDeviceService.getCookieId();
+        if (cookieId == null && isGoogleBot()) {
+            // Googlebot is requesting AJAX pages long after the HTTP session
+            // has timed out, but they at least maintain cookie state.  We force
+            // any other user to reload the page with a session timeout message.
+            cookieId = getDeviceCookieIdFromRequest();
+            log.debug("Googlebot request from timed out session, cookieId={}", cookieId);
+        }
+
         if (cookieId == null) {
             throw new IllegalStateException("stale session");
         }
+
         return cookieId;
     }
 
@@ -48,6 +62,16 @@ public class SavedDeviceServiceImpl implements SavedDeviceService {
 
     private static String getRemoteIp() {
         return RequestFactoryServlet.getThreadLocalRequest().getRemoteAddr();
+    }
+
+    private static boolean isGoogleBot() {
+        String hostName = ipToHostName(getRemoteIp());
+        return hostName != null ? hostName.endsWith(".googlebot.com") : false;
+    }
+
+    private String getDeviceCookieIdFromRequest() {
+        Cookie requestCookie = WebUtils.getCookie(request, DEVICE_COOKIE_NAME);
+        return requestCookie != null ? requestCookie.getValue() : null;
     }
 
     private static void checkBounds(int firstResult, int maxResults) {
