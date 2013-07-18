@@ -8,14 +8,14 @@ import org.junit.Test;
 import static to.noc.devicefp.server.util.IpUtil.*;
 
 public class IpUtilTest {
-    
+
     @Test
     public void test_ipFromString() {
         assertNull(ipFromString("abc.hij.qpf.xyz"));
         assertNull(ipFromString(null));
         assertTrue(ipFromString("192.168.0.1").getHostAddress().equals("192.168.0.1"));
     }
-    
+
     @Test
     public void test_ipFromXForwardedFor() {
         assertNull(ipFromXForwardedForString("abc.hij.qpf.xyz"));
@@ -24,31 +24,43 @@ public class IpUtilTest {
         assertTrue(ipFromXForwardedForString("192.168.0.1 8.8.8.8").getHostAddress().equals("192.168.0.1"));
         assertTrue(ipFromXForwardedForString("192.168.0.1, 8.8.8.8").getHostAddress().equals("192.168.0.1"));
     }
-    
+
     @Test
     public void test_isPrivateIp() {
         assertTrue(isPrivateIp("127.0.0.1"));
         assertTrue(isPrivateIp("0:0:0:0:0:0:0:1"));  // ipv6 loopback
         assertTrue(isPrivateIp("192.168.0.1"));
         assertTrue(isPrivateIp("10.0.0.1"));
-        
+
         // Google DNS
         assertFalse(isPrivateIp("8.8.8.8"));
-        
+
         // Carrier grade NAT:
         // 100.64.0.0/10 (100.64.0.0 – 100.127.255.255)
         assertFalse(isPrivateIp("100.0.0.1"));
-        assertFalse(isPrivateIp("100.63.255.254"));        
+        assertFalse(isPrivateIp("100.63.255.254"));
         assertTrue(isPrivateIp("100.64.0.1"));
         assertTrue(isPrivateIp("100.127.0.1"));
         assertFalse(isPrivateIp("100.128.0.1"));
     }
-    
+
     @Test
     public void test_ipToHostName() {
         assertNull(ipToHostName((String)null));
         assertNull(ipToHostName(""));
         assertNull(ipToHostName("xyz"));
         assertNotNull(ipToHostName("8.8.8.8"));
+    }
+
+    @Test
+    public void test_isGoogleBot() {
+        // Name:    crawl-66-249-74-31.googlebot.com
+        // Address: 66.249.74.31
+        assertTrue(isGoogleBot("66.249.74.31"));
+
+        // Name:    noc.to
+        // Address: 50.112.242.166
+        assertFalse(isGoogleBot("50.112.242.166"));
+        assertFalse(isGoogleBot(null));
     }
 }
