@@ -33,7 +33,7 @@ public class SavedDeviceServiceImpl implements SavedDeviceService {
 
     private String getCookieId() {
         String cookieId = currentDeviceService.getCookieId();
-        if (cookieId == null && isGoogleBot()) {
+        if (cookieId == null && isGoogleBot(getRemoteIp())) {
             // Googlebot is requesting AJAX pages long after the HTTP session
             // has timed out, but they at least maintain cookie state.  We force
             // any other user to reload the page with a session timeout message.
@@ -62,11 +62,6 @@ public class SavedDeviceServiceImpl implements SavedDeviceService {
 
     private static String getRemoteIp() {
         return RequestFactoryServlet.getThreadLocalRequest().getRemoteAddr();
-    }
-
-    private static boolean isGoogleBot() {
-        String hostName = ipToHostName(getRemoteIp());
-        return hostName != null ? hostName.endsWith(".googlebot.com") : false;
     }
 
     private String getDeviceCookieIdFromRequest() {
