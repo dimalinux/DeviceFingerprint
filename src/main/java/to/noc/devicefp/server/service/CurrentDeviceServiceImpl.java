@@ -67,7 +67,7 @@ public class CurrentDeviceServiceImpl extends AbstractCookieStatesUpdater implem
      *  Methods that modify cookies all have multiple database interactions and
      *  should be placed in a transaction.
      */
-    @Transactional(propagation = Propagation.MANDATORY)
+    @Transactional
     @Override
     public synchronized Device fixateNewDevice(Device newDevice, String existingPlainCookieId, String etagId) {
         setServerEndStamp();  // sets end stamp on previous device if there was one
@@ -136,8 +136,9 @@ public class CurrentDeviceServiceImpl extends AbstractCookieStatesUpdater implem
 
     /*
      *  Methods called from client are asynchronous calls to the server and
-     *  can occur simultaneously. Since this service is session scope, the
-     *  method level synchronization statements should be okay.
+     *  can occur simultaneously. Since this service object is session scope,
+     *  the method level synchronization should not cause unneccessary
+     *  contention.
      */
     @Override
     @Transactional
