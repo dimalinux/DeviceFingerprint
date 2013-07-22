@@ -28,7 +28,8 @@ import org.springframework.context.annotation.AdviceMode;
 @EnableJpaRepositories("to.noc.devicefp.server.domain.repository")
 public class JpaConfig {
 
-    private static final int THIRTY_MINUTES_MS = 1000 * 60 * 30;
+    private static final int TEN_MINUTES_MS = 1000 * 60 * 10;
+    private static final int TEN_SECONDS_MS = 1000 * 10;
 
     @Value("${database.url}")       private String databaseUrl;
     @Value("${database.username}")  private String username;
@@ -38,6 +39,10 @@ public class JpaConfig {
     @Bean(destroyMethod = "close")
     public DataSource dataSource() {
 
+        //
+        // DBCP default values are documented here:
+        //  http://commons.apache.org/proper/commons-dbcp/configuration.html
+        //
         BasicDataSource source = new BasicDataSource();
         source.setDriverClassName("com.mysql.jdbc.Driver");
         source.setUrl(databaseUrl);
@@ -46,10 +51,17 @@ public class JpaConfig {
         source.setTestOnBorrow(true);
         source.setTestOnReturn(true);
         source.setTestWhileIdle(true);
-        source.setTimeBetweenEvictionRunsMillis(THIRTY_MINUTES_MS);
+        source.setTimeBetweenEvictionRunsMillis(TEN_MINUTES_MS);
         source.setNumTestsPerEvictionRun(3);
-        source.setMinEvictableIdleTimeMillis(THIRTY_MINUTES_MS);
+        source.setMinEvictableIdleTimeMillis(TEN_MINUTES_MS);
         source.setValidationQuery("SELECT 1");
+        source.setRemoveAbandoned(true);
+        source.setLogAbandoned(true);
+        source.setInitialSize(2);
+        source.setMinIdle(2);
+        source.setMaxIdle(20);
+        source.setMaxActive(25);
+        source.setMaxWait(TEN_SECONDS_MS);
 
         return source;
     }
