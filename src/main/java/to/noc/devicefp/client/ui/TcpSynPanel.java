@@ -11,7 +11,7 @@ import to.noc.devicefp.client.entity.TcpSynDataCs;
 
 public class TcpSynPanel extends Composite implements IsWidget {
     private static final Binder BINDER = GWT.create(Binder.class);
-    
+
     interface Binder extends UiBinder<HTMLPanel, TcpSynPanel> {}
 
     @UiField Label receivedTimeToLiveLabel;
@@ -21,10 +21,10 @@ public class TcpSynPanel extends Composite implements IsWidget {
     @UiField Label tcpFlagsLabel;
     @UiField Label tcpWindowSizeLabel;
     @UiField SimplePanel tcpOptionsPanel;
-    
+
     private TcpSynDataCs tcpSynData;
-    
-                    
+
+
     @SuppressWarnings("LeakingThisInConstructor")
     public TcpSynPanel() {
         initWidget(BINDER.createAndBindUi(this));
@@ -34,26 +34,29 @@ public class TcpSynPanel extends Composite implements IsWidget {
     public Widget asWidget() {
         return this;
     }
-            
+
     public void setValue(TcpSynDataCs tcpSynData) {
 
         if (this.tcpSynData == tcpSynData) {
             return;
         }
         this.tcpSynData = tcpSynData;
-        
+
         receivedTimeToLiveLabel.setText(Short.toString(tcpSynData.getTtl()));
         ipTypeOfServiceLabel.setText("0x" + Integer.toHexString(tcpSynData.getTos()));
         ipTotalLengthLabel.setText(Integer.toString(tcpSynData.getLength()));
-        
+
         String ipFlags = tcpSynData.getIpFlags();
         ipFlags = (ipFlags != null) ? ipFlags.replace("DF", "Don't Fragment") : "";
         ipFlagsLabel.setText(ipFlags);
-        
+
         String tcpFlags = tcpSynData.getTcpFlags();
+        // We occasionally see SEW (SYN, ECN, CWR) from bots. Until I see something
+        // other than "S" from a real browser, we'll just leave the Tcpdump
+        // abbreviations for unusual flag combinations.
         tcpFlags = (tcpFlags != null) ? tcpFlags.replaceFirst("\\bS\\b", "SYN") : "";
         tcpFlagsLabel.setText(tcpFlags);
-                       
+
         tcpWindowSizeLabel.setText(Integer.toString(tcpSynData.getWindowSize()));
 
         String tcpOptions = tcpSynData.getTcpOptions();
@@ -80,7 +83,7 @@ public class TcpSynPanel extends Composite implements IsWidget {
 
             }
             tcpOptionsPanel.setWidget(list);
-        }    
-    }          
-    
+        }
+    }
+
 }
