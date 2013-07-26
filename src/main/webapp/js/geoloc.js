@@ -250,11 +250,10 @@ $(function() {
             var longAgo = nowMs - (10000 * 24 * 60 * 60 * 1000); // 10k days ago
 
             if (geoTs < longAgo) {
-                // Desktop Safari is giving us geolocation start times way in
-                // the past.  Adjusting the epoch start to Nov. 2nd, 2000 seems
-                // to yeild a correct timestamp.
-                suffix = " (time had non-standard epoch start)";
-                var epochAdjust = Date.UTC(2000, 11, 2, 0, 0, 0);
+                // Desktop Safari is giving us geolocation timestamps where the
+                // epoch delta value starts in 2001 instead of 1970.
+                suffix = " (time had 2001 epoch start)";
+                var epochAdjust = Date.UTC(2001, 0 /*0=Jan*/, 1, 0, 0, 0);
                 geoTs += epochAdjust;
             } else if (geoTs > nowMs * 100) {
                 // In IOS 6.0 (fixed in 6.1), the timestamp is in microseconds,

@@ -18,8 +18,8 @@ public final class BrowserLocationJso extends JavaScriptObject implements Browse
     }
 
     // IOS 6.0 had a bug and returned microseconds instead of milliseconds. 6.1 fixed
-    // the issue.  Desktop Safari is giving us geolocation timestamps that appear
-    // to have an epoch start time of Nov. 2nd, 2000.
+    // the issue.  Desktop Safari is giving us geolocation timestamps as an epoch
+    // delta that starts in 2001 instead of the standard 1970.
     private native Double getStampMs() /*-{
         var value = this.timestamp;
 
@@ -29,7 +29,7 @@ public final class BrowserLocationJso extends JavaScriptObject implements Browse
 
             if (value < longAgo) {
                 // Desktop Safari using non-standard epoch start time
-                value += Date.UTC(2000, 11, 2, 0, 0, 0);
+                value += Date.UTC(2001, 0, 1, 0, 0, 0);
             } else if (value > nowMs * 100) {
                 // IOS 6.0 time in microseconds
                 value /= 1000;
