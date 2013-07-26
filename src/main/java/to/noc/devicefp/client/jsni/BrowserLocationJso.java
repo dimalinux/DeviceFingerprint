@@ -18,12 +18,24 @@ public final class BrowserLocationJso extends JavaScriptObject implements Browse
     }
 
     // IOS 6.0 had a bug and returned microseconds instead of milliseconds. 6.1 fixed
-    // the issue.
+    // the issue.  Desktop Safari is giving us geolocation timestamps that appear
+    // to have an epoch start time of Nov. 2nd, 2000.
     private native Double getStampMs() /*-{
         var value = this.timestamp;
-        if (value && value > 14000000000000) {
-            value /= 1000;
+
+        if (value) {
+            var nowMs = new Date().getTime();
+            var longAgo = nowMs - (10000 * 24 * 60 * 60 * 1000); // 10k days ago
+
+            if (value < longAgo) {
+                // Desktop Safari using non-standard epoch start time
+                value += Date.UTC(2000, 11, 2, 0, 0, 0);
+            } else if (value > nowMs * 100) {
+                // IOS 6.0 time in microseconds
+                value /= 1000;
+            }
         }
+
         return (typeof value === 'number') ? @java.lang.Double::valueOf(D)(value) : null;
     }-*/;
 
@@ -32,7 +44,7 @@ public final class BrowserLocationJso extends JavaScriptObject implements Browse
         Double stampMs = getStampMs();
         return (stampMs != null) ? new Date(Math.round(stampMs)) : null;
     }
-    
+
     @Override
     public native Double getLatitude() /*-{
         var value = this.coords ? this.coords.latitude : null;
@@ -80,13 +92,13 @@ public final class BrowserLocationJso extends JavaScriptObject implements Browse
         var value = (this.coords && this.coords.speed) ? this.coords.speed : null;
         return (typeof value === 'number') ? @java.lang.Double::valueOf(D)(value) : null;
     }-*/;
-    
+
     @Override
     public native Integer getErrorCode() /*-{
         var value = this.code;
         return (typeof value === 'number') ? @java.lang.Integer::valueOf(I)(value) : null;
     }-*/;
-    
+
     @Override
     public native String getErrorMessage() /*-{
         return this.message || null;

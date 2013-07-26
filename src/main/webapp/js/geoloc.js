@@ -228,14 +228,7 @@ $(function() {
         setOptionalNumericRow("heading", "°");
         setOptionalNumericRow("speed", " meters/sec");
 
-        var timeMs = position.timestamp;
-        // In IOS 6.0 (fixed in 6.1), the timestamp is in microseconds, so we divide by 1000 to compensate.
-        var isTimeInMicroseconds = (timeMs > 14000000000000);
-        var time = (!isTimeInMicroseconds) ?
-            new Date(timeMs).toLocaleString() :
-            new Date(timeMs/1000).toLocaleString() + " (source time was in microseconds)";
-        $("#timestamp").text(time);
-
+        $("#timestamp").text(formatGeoTimestamp(position.timestamp));
         $("#rawResults").text("position = " + obj2str(position));
     }
 
@@ -246,6 +239,34 @@ $(function() {
             units = " kilometers";
         }
         return accuracy + units;
+    }
+
+    function formatGeoTimestamp(geoTs) {
+        var tsString = "-";
+
+        if (geoTs) {
+            var suffix = "";
+            var nowMs = Date.now();
+            var longAgo = nowMs - (10000 * 24 * 60 * 60 * 1000); // 10k days ago
+
+            if (geoTs < longAgo) {
+                // Desktop Safari is giving us geolocation start times way in
+                // the past.  Adjusting the epoch start to Nov. 2nd, 2000 seems
+                // to yeild a correct timestamp.
+                suffix = " (time had non-standard epoch start)";
+                var epochAdjust = Date.UTC(2000, 11, 2, 0, 0, 0);
+                geoTs += epochAdjust;
+            } else if (geoTs > nowMs * 100) {
+                // In IOS 6.0 (fixed in 6.1), the timestamp is in microseconds,
+                // so we divide by 1000 to compensate.
+                suffix = " (time was in microseconds)";
+                geoTs /= 1000;
+            }
+
+            tsString = new Date(geoTs).toLocaleString() + suffix;
+        }
+
+        return tsString;
     }
 
     // Recursively ensures that all properties on the object are direct (i.e. not inherited).
