@@ -83,6 +83,8 @@ public class TcpSynPanel extends Composite implements IsWidget {
 
             }
             tcpOptionsPanel.setWidget(list);
+        } else {
+            tcpOptionsPanel.setWidget(new Label("[empty]"));
         }
     }
 
