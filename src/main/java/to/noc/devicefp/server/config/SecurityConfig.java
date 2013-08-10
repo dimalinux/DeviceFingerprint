@@ -27,7 +27,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
             .ignoring()
-                .antMatchers("/css/**","/js/**","/images/**","/deviceFingerprint/**");
+                .antMatchers(
+                    "/css/**",
+                    "/js/**",
+                    "/images/**",
+                    "/deviceFingerprint/**",
+                    "/*.swf",       // flash
+                    "/*.xap",       // silverlight
+                    "/*.class",     // java applet (if we ever enable it again)
+                    "/sitemap.xml",
+                    "/favicon.ico"
+                );
 
     }
 
