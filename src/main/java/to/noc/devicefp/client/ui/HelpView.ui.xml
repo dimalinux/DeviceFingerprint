@@ -264,8 +264,9 @@
             <li>
                 <span>ID:</span>
                 <span>
-                    The end value of the synchronized cookie. If you have Flash or Silverlight installed, your
-                    cookie value will most likely be synced between browsers on the same computer.
+                    The end value of the synchronized cookie.  When multiple
+                    choices are available, the cookie id with the earliest
+                    inception date wins.
                 </span>
             </li>
             <li>
@@ -291,15 +292,20 @@
                 <span>Flash Cookie:</span>
                 <span>
                     Flash's storage system is called <i>Local Shared Objects</i>. Unlike
-                    <i>HTML5 Web Storage</i>, this storage is usually shared by all browsers on
-                    the local computer.
+                    <i>HTML5 Web Storage</i>, this storage is usually shared by all browsers
+                    using the Adobe Flash plugin and can be used to syncronize a cookie
+                    between browsers on the same computer.  Note: Chrome bundles its own version
+                    of Flash that uses a
+                    <a href="https://en.wikipedia.org/wiki/Local_shared_object#File_locations">seperate storage location</a>.
                 </span>
             </li>
             <li>
                 <span>Silverlight Cookie:</span>
                 <span>
                     Silverlight's storage system is called <i>Isolated Storage</i>. Like Flash's
-                    storage, this data is usually shared by all browsers on the local computer.
+                    storage, this data is usually shared by different browsers.  Unlike Flash,
+                    Silverlight can be used to syncronize a cookie between Chrome and other
+                    browsers on the same computer.
                 </span>
             </li>
         </ul>
