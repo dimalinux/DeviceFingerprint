@@ -13,7 +13,7 @@ import static to.noc.devicefp.server.util.IpUtil.ipWithHostName;
 
 /*
  * We're using a customized RequestFactoryServlet so we can have our own
- * ExceptionHandler that logs and does pass the stack trace to the client.
+ * ExceptionHandler that logs.
  *
  * Idea came from this blog:
  *  http://cleancodematters.com/2011/05/29/improved-exceptionhandling-with-gwts-requestfactory/
@@ -28,16 +28,21 @@ public class DeviceFingerprintRequestFactoryServlet extends RequestFactoryServle
         @Override
         public ServerFailure createServerFailure(Throwable throwable) {
 
-            StringBuilder message = new StringBuilder("Server error");
+            StringBuilder message = new StringBuilder("RF Server error");
             HttpServletRequest request = getThreadLocalRequest();
             if (request != null) {
                 message.append(" requestUrl=").append(request.getRequestURL());
                 message.append(" remoteIp=").append(ipWithHostName(request.getRemoteAddr()));
             }
-            log.error(message.toString(), throwable);
+            if (throwable != null) {
+                log.error(message.toString(), throwable);
+            } else {
+                message.append("; throwable=null");
+                log.error(message.toString());
+            }
             return new ServerFailure(
-                    throwable.getMessage(),
-                    throwable.getClass().getName(),
+                    throwable == null ? null : throwable.getMessage(),
+                    null,
                     null,  // stack trace string (don't give to client)
                     true   // is fatal
                     );
