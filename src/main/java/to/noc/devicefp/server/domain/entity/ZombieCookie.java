@@ -162,7 +162,14 @@ public class ZombieCookie implements Serializable, Comparable<ZombieCookie> {
     public synchronized ZombieCookie oldestRelative() {
         ZombieCookie node = this;
         while (node.hasParent()) {
-            node = node.getParent();
+            ZombieCookie nodeParent = node.getParent();
+            if (nodeParent.isOlder(node)) {
+                node = node.getParent();
+            } else {
+                log.error("cookie age hierarchy violation parent={};{} child={};{}",
+                        nodeParent.getId(), nodeParent.getInception(), node.getId(), node.getInception());
+                break;
+            }
         }
         return node;
     }
