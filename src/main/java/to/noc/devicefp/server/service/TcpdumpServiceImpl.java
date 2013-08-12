@@ -261,7 +261,11 @@ public class TcpdumpServiceImpl implements TcpdumpService {
             while ((ipLine = reader.readLine()) != null) {
                 Matcher ipHdrMatcher = ipHdrPattern.matcher(ipLine);
                 if (!ipHdrMatcher.matches()) {
-                    log.error("found something other than ip header line: {}", ipLine);
+                    // Packets dropped count occurs at termination. If the count
+                    // is zero we don't want an error.
+                    if (!ipLine.startsWith("0 packets dropped")) {
+                        log.error("found something other than ip header line: {}", ipLine);
+                    }
                     continue;
                 }
 
