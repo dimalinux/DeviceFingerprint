@@ -21,6 +21,7 @@ import to.noc.devicefp.client.jsni.CurrentDevice;
 import to.noc.devicefp.client.ui.DeviceDetailsView;
 import to.noc.devicefp.client.ui.DeviceDetailsView.DeleteHandler;
 import to.noc.devicefp.client.ui.DevicesView;
+import to.noc.devicefp.client.ui.SessionLost;
 
 
 public abstract class AbstractDevicesActivity extends AbstractActivity implements DeleteHandler {
@@ -94,6 +95,7 @@ public abstract class AbstractDevicesActivity extends AbstractActivity implement
             public void onFailure(ServerFailure error) {
                 String message = "countSaved onFailure: " + error.getMessage();
                 log.warning(message);
+                SessionLost.show();
             }
 
             @Override
@@ -171,6 +173,7 @@ public abstract class AbstractDevicesActivity extends AbstractActivity implement
                     public void onFailure(ServerFailure error) {
                         String message = "findDevices onFailure: " + error.getMessage();
                         log.warning(message);
+                        SessionLost.show();
                     }
 
                     @Override
@@ -212,6 +215,7 @@ public abstract class AbstractDevicesActivity extends AbstractActivity implement
             @Override
             public void onFailure(ServerFailure error) {
                 log.warning("markDeleted Failure: " + error.getMessage());
+                SessionLost.show();
             }
         });
     }
