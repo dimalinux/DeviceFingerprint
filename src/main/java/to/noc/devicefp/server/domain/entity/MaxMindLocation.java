@@ -82,8 +82,8 @@ public class MaxMindLocation implements Serializable {
     @Column(length=80)
     private String domain;
 
-    @Size(max=80)
-    @Column(length=80)
+    @Size(max=255)
+    @Column(length=255)
     private String asnum;
 
     @Size(max=80)
