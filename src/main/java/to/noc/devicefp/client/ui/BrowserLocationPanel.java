@@ -192,7 +192,7 @@ public class BrowserLocationPanel extends Composite implements IsWidget {
                 locationMap.setLocation(location, reverseGeocode);
                 timeStamp.setValue(jsData, location.getStamp());
                 setReverseGeolocationValues(location, reverseGeocode);
-            } else if (location.getErrorCode() != null) {
+            } else if (location.getErrorCode() != null || location.getErrorMessage() != null) {
                 positionErrorVisible = true;
                 setOptionalValue(errorCodeRow, errorCodeLabel, geolocationErrorCodeValue(location.getErrorCode()));
                 setOptionalValue(errorMessageRow, errorMessageLabel, location.getErrorMessage());
