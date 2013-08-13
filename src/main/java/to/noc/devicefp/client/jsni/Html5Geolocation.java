@@ -25,11 +25,20 @@ public final class Html5Geolocation {
             callback.@to.noc.devicefp.client.jsni.Html5Geolocation.Callback::setBrowserLocation(Lto/noc/devicefp/client/jsni/BrowserLocationJso;)(result);
         };
 
-        $wnd.navigator.geolocation.getCurrentPosition(
-            successOrFailCallback,
-            successOrFailCallback,
-            positionOptions
-        );
+        if ($wnd.navigator.geolocation) {
+            $wnd.navigator.geolocation.getCurrentPosition(
+                successOrFailCallback,
+                successOrFailCallback,
+                positionOptions
+            );
+        } else {
+           // The current (Aug. 2013) Tor browser bundle forced me to add this
+           // extra check.  :(
+           var result = {
+                message: "Defective browser: navigator.geolocation exists, but is set to null"
+           };
+           successOrFailCallback(result);
+        }
 
     }
   }-*/;
