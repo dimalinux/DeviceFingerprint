@@ -3,6 +3,7 @@
  */
 package to.noc.devicefp.server.domain.repository;
 
+import com.mysema.query.jpa.impl.JPAQuery;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -13,6 +14,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 import to.noc.devicefp.server.domain.entity.Device;
+import to.noc.devicefp.server.domain.entity.OpenIdUser;
+import to.noc.devicefp.server.domain.entity.QDevice;
+import static to.noc.devicefp.server.domain.repository.DeviceSpecifier.*;
+import to.noc.devicefp.server.util.DeviceSearchString;
 
 public class DeviceRepositoryImpl implements DeviceRepositoryCustom {
     private static final Logger log = LoggerFactory.getLogger(DeviceRepositoryImpl.class);
@@ -190,32 +195,60 @@ public class DeviceRepositoryImpl implements DeviceRepositoryCustom {
     }
 
 
-    /*
-     * Returns all devices, including those marked as deleted, that don't belong
-     * to the passed in userId.  (For use by an admin user that doesn't want to
-     * see his own devices.)
-     */
     @Override
     @Transactional(readOnly=true)
-    @SuppressWarnings("unchecked")
-    public List<Device> findAllDevicesButMine(long notMineUserId, int firstResult, int maxResults) {
-        Query query = entityManager.createQuery(
-            "select d " +
-            "from   Device d "   +
-            "where d.zombieCookie.id not in ( " +
-            "  select c.id " +
-            "  from OpenIdUser u" +
-            "  join u.cookies c " +
-            "  where u.id = :notMineUserId " +
-            ") " +
-            "order by " +
-            "       d.id desc "
-        );
-        query.setParameter("notMineUserId", notMineUserId);
-        query.setFirstResult(firstResult);
-        query.setMaxResults(maxResults);
+    public long countAdminView(OpenIdUser currentUser, String search) {
 
-        return query.getResultList();
+        return createAdminViewQuery(currentUser, search)
+                .count();
     }
 
+    @Override
+    @Transactional(readOnly=true)
+    public List<Device> findAdminView(OpenIdUser currentUser, String search, int firstResult, int maxResults) {
+
+        return createAdminViewQuery(currentUser, search)
+                .orderBy(newestToOldest())
+                .offset(firstResult)
+                .limit(maxResults)
+                .list(QDevice.device);
+    }
+
+
+    public JPAQuery createAdminViewQuery(OpenIdUser user, String search) {
+
+        DeviceSearchString dss = new DeviceSearchString(search != null ? search : "");
+        QDevice qDevice = QDevice.device;
+        JPAQuery query = new JPAQuery(entityManager).from(qDevice);
+
+        if (dss.hasJs()) {
+            query = query.innerJoin(qDevice.jsData);
+        }
+
+        Long deviceId = dss.parseDeviceId();
+        if (deviceId != null) {
+            query = query.where(qDevice.id.eq(deviceId));
+        }
+
+        //  Use the email being searched on or, by default, skip over imprints
+        //  owned by the current admin user.
+        String email = dss.parseEmail();
+        if (email != null) {
+            query = query.where(hasEmail(email));
+        } else {
+            query = query.where(isNotUser(user));
+        }
+
+        String ip = dss.parseIpAddress();
+        if (ip != null) {
+            query = query.where(hasIp(ip));
+        }
+
+        String cookieId = dss.parseCookieId();
+        if (cookieId != null) {
+            query = query.where(hasExactCookieId(cookieId));
+        }
+
+        return query;
+    }
 }
