@@ -15,8 +15,8 @@ public interface SavedDeviceService {
     long countWithSameIp();
     List<Device> findWithSameIp(int firstResult, int maxResults);
 
-    long countAllOther();
-    List<Device> findAllOther(int firstResult, int maxResults);
+    long countAdminView(String search);
+    List<Device> findAdminView(String search, int firstResult, int maxResults);
 
     void markDeleted(Long targetDeviceId);
 
