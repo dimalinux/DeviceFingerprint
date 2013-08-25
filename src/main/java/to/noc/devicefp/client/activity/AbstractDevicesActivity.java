@@ -29,7 +29,7 @@ public abstract class AbstractDevicesActivity extends AbstractActivity implement
     private static final Logger log = Logger.getLogger(AbstractDevicesActivity.class.getName());
 
     private final SingleSelectionModel<DeviceCs> singleSelectModel;
-    private final DevicesView devicesView = new DevicesView();
+    protected final DevicesView devicesView = new DevicesView();
     private final DeviceDetailsView deviceDetailsView = DeviceDetailsView.instance();
     private final boolean enableDelete;
 
@@ -82,6 +82,12 @@ public abstract class AbstractDevicesActivity extends AbstractActivity implement
         devicesView.showHelp(getHelpText());
         devicesView.setDetailsWidget(deviceDetailsView);
 
+        reloadGrid();
+    }
+
+
+    protected void reloadGrid() {
+
         countDevices().fire(new Receiver<Long>() {
 
             @Override
@@ -113,8 +119,8 @@ public abstract class AbstractDevicesActivity extends AbstractActivity implement
     }
 
 
-    private void showDetails(DeviceCs device) {
-        if (device != null) {
+    protected void showDetails(DeviceCs device) {
+            if (device != null) {
             DeviceCs currentDevice = CurrentDevice.instance();
             if (currentDevice.getId().equals(device.getId())) {
                 // The local version of the current device may be more
