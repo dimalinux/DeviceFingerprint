@@ -6,8 +6,12 @@ package to.noc.devicefp.client.ui;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.dom.client.DivElement;
+import com.google.gwt.dom.client.InputElement;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.cellview.client.SimplePager;
@@ -23,6 +27,17 @@ public class DevicesView extends Composite implements IsWidget {
     interface Binder extends UiBinder<HTMLPanel, DevicesView> {}
     private static final Binder BINDER = GWT.create(Binder.class);
 
+    public interface FilterSubmit {
+        void applyFilter(String filterText);
+    }
+    FilterSubmit filterSubmitter;
+
+    interface Style extends CssResource {
+        String hideSearch();
+    }
+
+    @UiField Style style;
+
     @UiField(provided=true)
     SimplePager pager;
 
@@ -37,6 +52,11 @@ public class DevicesView extends Composite implements IsWidget {
 
     @UiField
     DivElement helpDiv;
+
+    @UiField
+    InputElement searchInput;
+
+    @UiField Button applyFilterButton;
 
     @SuppressWarnings("LeakingThisInConstructor")
     public DevicesView() {
@@ -132,4 +152,31 @@ public class DevicesView extends Composite implements IsWidget {
     public void hideHelp() {
         UIObject.setVisible(helpDivFrame, false);
     }
+
+    public void enableSearchBox(String initialFilter, FilterSubmit filterSubmitter) {
+        this.filterSubmitter = filterSubmitter;
+        if (initialFilter != null) {
+            searchInput.setValue(initialFilter);
+        }
+        hideSearchElements(false);
+    }
+
+    @UiHandler("applyFilterButton")
+    void onOpenAllPanelsButtonClicked(ClickEvent event) {
+        hideSearchElements(true);
+        if (filterSubmitter != null) {
+            filterSubmitter.applyFilter(searchInput.getValue());
+        }
+    }
+
+    void hideSearchElements(boolean hide) {
+        if (hide) {
+            searchInput.addClassName(style.hideSearch());
+            applyFilterButton.addStyleName(style.hideSearch());
+        } else {
+            searchInput.removeClassName(style.hideSearch());
+            applyFilterButton.removeStyleName(style.hideSearch());
+        }
+    }
+
 }

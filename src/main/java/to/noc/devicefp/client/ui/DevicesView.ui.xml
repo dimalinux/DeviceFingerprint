@@ -9,40 +9,46 @@
              >
     <ui:image field="createButton" src="../style/images/createButton.png"/>
 
-    <ui:style>
-        .controls {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 3px;
-            height: 2em;
-            margin-left: 15px;
-        }
+    <ui:style type="to.noc.devicefp.client.ui.DevicesView.Style">
 
-        .controls table {
-            position: absolute;
-            right: 0;
-            top: 0;
-        }
-
-        .controls button {
-            display: inline;
-        }
-
-        .listView {
-            position: relative;
-        }
-
-        .listView &gt; table {
-            table-layout: fixed;
+        table.listViewWithControls {
+            width: 100%;
             border-bottom: solid grey 2px;
+            margin-bottom: 1em;
         }
 
-        .listView &gt; table td {
+        td.listView > table {
+            width: 100%;
             text-overflow: ellipsis;
+            table-layout: fixed;
             overflow: hidden;
+            border-spacing:0;
+            border-collapse:collapse;
             white-space: nowrap;
             cursor: pointer;
+        }
+
+        td.searchCell {
+            padding-left: 1em;
+            padding-right: 0.3em;
+            max-width: 50em;
+        }
+
+        .hideSearch {
+            display: none;
+        }
+
+        td.searchCell input {
+            width: 100%;
+        }
+
+        td.filterButtonCell {
+            min-width: 3.3em;
+        }
+
+        td.controlsCell {
+            padding-left: 0.5em;
+            width: 15em;
         }
 
         .helpDivFrame {
@@ -60,19 +66,27 @@
             font-style: italic;
         }
 
-        .detailsPanel {
-        }
-
     </ui:style>
 
-
-    <g:HTMLPanel addStyleNames="{style.listView}">
-        <div style="height:2em;"/>
-        <b:CellTable pageSize="8" ui:field="table" width="100%"/>
-        <div class="{style.controls}">
-            <b:SimplePager ui:field="pager"/>
-        </div>
-        <div style="height:1em;"/>
+    <g:HTMLPanel>
+        <table  class="{style.listViewWithControls}">
+            <tr>
+                <td class="{style.searchCell}">
+                    <input ui:field="searchInput" class="{style.hideSearch}" type="search"/>
+                </td>
+                <td class="{style.filterButtonCell}" align="left">
+                    <g:Button ui:field="applyFilterButton" addStyleNames="{style.hideSearch}">Filter</g:Button>
+                </td>
+                <td class="{style.controlsCell}" align="right">
+                    <b:SimplePager ui:field="pager"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="{style.listView}" colspan="3">
+                    <b:CellTable pageSize="8" ui:field="table" width="100%"/>
+                </td>
+            </tr>
+        </table>
         <g:SimplePanel ui:field="detailsPanel"></g:SimplePanel>
         <div class="{style.helpDivFrame}" ui:field="helpDivFrame">
             <div class="{style.helpDiv}" ui:field="helpDiv"></div>
