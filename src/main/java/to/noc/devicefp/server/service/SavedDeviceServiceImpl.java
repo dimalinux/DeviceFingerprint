@@ -16,9 +16,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.WebUtils;
 import to.noc.devicefp.server.domain.entity.Device;
+import to.noc.devicefp.server.domain.entity.OpenIdUser;
 import to.noc.devicefp.server.domain.entity.RequestHeader;
 import to.noc.devicefp.server.domain.entity.ZombieCookie;
 import to.noc.devicefp.server.domain.repository.DeviceRepository;
+import to.noc.devicefp.server.domain.repository.OpenIdUserRepository;
 import static to.noc.devicefp.server.util.IpUtil.*;
 import static to.noc.devicefp.shared.CookieDefs.DEVICE_COOKIE_NAME;
 
@@ -27,6 +29,7 @@ public class SavedDeviceServiceImpl implements SavedDeviceService {
     private static final Logger log = LoggerFactory.getLogger(SavedDeviceServiceImpl.class);
 
     @Autowired private DeviceRepository deviceRepository;
+    @Autowired private OpenIdUserRepository userRepository;
     @Autowired private CurrentUserService currentUserService;
     @Autowired private CurrentDeviceService currentDeviceService;
     @Autowired private HttpServletRequest request;
@@ -58,6 +61,10 @@ public class SavedDeviceServiceImpl implements SavedDeviceService {
 
     private Long getUserId() {
         return currentUserService.getUserId();
+    }
+
+    private OpenIdUser getUser() {
+        return userRepository.findOne(getUserId());
     }
 
     private static String getRemoteIp() {
@@ -154,21 +161,21 @@ public class SavedDeviceServiceImpl implements SavedDeviceService {
 
 
     @Override
-    public long countAllOther() {
+    public long countAdminView(String search) {
         long count = 0;
         if (isAdmin()) {
-            count = deviceRepository.countAllDevicesButMine(getUserId());
+            count = deviceRepository.countAdminView(getUser(), search);
         }
         return count;
     }
 
 
     @Override
-    public List<Device> findAllOther(int firstResult, int maxResults) {
+    public List<Device> findAdminView(String search, int firstResult, int maxResults) {
         List<Device> devices;
 
         if (isAdmin()) {
-            devices = deviceRepository.findAllDevicesButMine(getUserId(), firstResult, maxResults);
+            devices = deviceRepository.findAdminView(getUser(), search, firstResult, maxResults);
         } else {
             log.error("request to findAll from non-admin user: client={}",
                     currentDeviceService.getClientInfo());
