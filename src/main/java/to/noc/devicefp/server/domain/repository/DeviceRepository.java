@@ -40,17 +40,4 @@ public interface DeviceRepository extends JpaRepository<Device, Long>, DeviceRep
     )
     long countWithIpDevices(@Param("ipAddress") String ipAddress);
 
-
-    @Query(
-        "select count(d.id) " +
-        "from Device d " +
-        "where d.zombieCookie.id not in ( " +
-        "  select c.id " +
-        "  from OpenIdUser u" +
-        "  join u.cookies c " +
-        "  where u.id = :notMineUserId " +
-        ") "
-    )
-    long countAllDevicesButMine(@Param("notMineUserId") long notMineUserId);
-
 }
