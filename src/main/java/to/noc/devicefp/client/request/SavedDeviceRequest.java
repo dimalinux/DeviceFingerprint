@@ -20,8 +20,8 @@ public interface SavedDeviceRequest extends RequestContext {
     Request<Long> countWithSameIp();
     Request<List<DeviceProxy>> findWithSameIp(int firstResult, int maxResults);
 
-    Request<Long> countAllOther();
-    Request<List<DeviceProxy>> findAllOther(int firstResult, int maxResults);
+    Request<Long> countAdminView(String search);
+    Request<List<DeviceProxy>> findAdminView(String search, int firstResult, int maxResults);
 
     Request<Void> markDeleted(Long deviceId);
 }
