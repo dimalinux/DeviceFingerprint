@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import to.noc.devicefp.server.config.InMemoryJpaConfig;
 import to.noc.devicefp.server.config.PropertiesConfig;
 import to.noc.devicefp.server.domain.entity.Device;
+import to.noc.devicefp.server.domain.entity.JsData;
 import to.noc.devicefp.server.domain.entity.OpenIdUser;
 import to.noc.devicefp.server.domain.entity.ZombieCookie;
 
@@ -141,7 +142,26 @@ public class DeviceRepositoryTest {
 
 
     @Test
-    public void test_AllDevicesButMineQueries() {
+    public void test_WithIpQueries() {
+        Device[] devices = createDeviceArray(10);
+
+        // 10 devices, first two should not be included in results
+        devices[0].setIpAddress("10.0.0.1");
+        devices[1].setMarkedDeleted(true);
+
+        Device[] linkedDevs = deviceSubset(devices, 9, 8, 7, 6, 5, 4, 3, 2);
+        assertEquals(linkedDevs.length, deviceRepository.countWithIpDevices(defaultIpAddress));
+        assertArrayEquals(linkedDevs, deviceRepository.findWithIpDevices(defaultIpAddress, 0, 1000).toArray());
+
+        assertNull(deviceRepository.findWithIpDevice(defaultIpAddress, devices[0].getId()));
+        assertNull(deviceRepository.findWithIpDevice(defaultIpAddress, devices[1].getId()));
+        assertEquals(devices[2], deviceRepository.findWithIpDevice(defaultIpAddress, devices[2].getId()));
+    }
+
+
+    @Test
+    public void test_AdminViewDevices_excludeCurrentUserFromResults() {
+        String search = ""; // if no email is specified, current user is excluded
         Device[] devices = createDeviceArray(10);
         OpenIdUser user1 = createTestUser();
         OpenIdUser user2 = createTestUser();
@@ -159,29 +179,28 @@ public class DeviceRepositoryTest {
         Device[] notUser1 = deviceSubset(devices, 6, 5, 4, 3, 2, 1, 0);  // ordered by last index first
         Device[] notUser2 = deviceSubset(devices, 1, 0);
 
-        assertEquals(notUser1.length, deviceRepository.countAllDevicesButMine(user1.getId()));
-        assertEquals(notUser2.length, deviceRepository.countAllDevicesButMine(user2.getId()));
+        assertEquals(notUser1.length, deviceRepository.countAdminView(user1, search));
+        assertEquals(notUser2.length, deviceRepository.countAdminView(user2, search));
 
-        assertArrayEquals(notUser1, deviceRepository.findAllDevicesButMine(user1.getId(), 0, 1000).toArray());
-        assertArrayEquals(notUser2, deviceRepository.findAllDevicesButMine(user2.getId(), 0, 1000).toArray());
+        assertArrayEquals(notUser1, deviceRepository.findAdminView(user1, search, 0, 1000).toArray());
+        assertArrayEquals(notUser2, deviceRepository.findAdminView(user2, search, 0, 1000).toArray());
     }
 
-
     @Test
-    public void test_WithIpQueries() {
+    public void test_AdminViewDevices_hasJavaScript() {
+        String search = "hasJs";
         Device[] devices = createDeviceArray(10);
+        OpenIdUser user = createTestUser();
 
-        // 10 devices, first two should not be included in results
-        devices[0].setIpAddress("10.0.0.1");
-        devices[1].setMarkedDeleted(true);
+        for(int i = 0; i < 5; i++) {
+            devices[i].setJsData(new JsData());
+            devices[i] = deviceRepository.save(devices[i]);
+        }
 
-        Device[] linkedDevs = deviceSubset(devices, 9, 8, 7, 6, 5, 4, 3, 2);
-        assertEquals(linkedDevs.length, deviceRepository.countWithIpDevices(defaultIpAddress));
-        assertArrayEquals(linkedDevs, deviceRepository.findWithIpDevices(defaultIpAddress, 0, 1000).toArray());
+        Device[] hasJsDevs = deviceSubset(devices, 4, 3, 2, 1, 0);
 
-        assertNull(deviceRepository.findWithIpDevice(defaultIpAddress, devices[0].getId()));
-        assertNull(deviceRepository.findWithIpDevice(defaultIpAddress, devices[1].getId()));
-        assertEquals(devices[2], deviceRepository.findWithIpDevice(defaultIpAddress, devices[2].getId()));
+        assertEquals(hasJsDevs.length, deviceRepository.countAdminView(user, search));
+        assertArrayEquals(hasJsDevs, deviceRepository.findAdminView(user, search, 0, 1000).toArray());
     }
 
 }
