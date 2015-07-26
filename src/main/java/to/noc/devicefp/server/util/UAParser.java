@@ -45,7 +45,7 @@ public class UAParser {
     );
 
     private static UserAgentStringParser uaParser =
-            UADetectorServiceFactory.getCachingAndUpdatingParser();
+            UADetectorServiceFactory.getResourceModuleParser();
 
     public static UserAgentData parse(String uaString) {
         return convert(uaParser.parse(uaString), uaString);
