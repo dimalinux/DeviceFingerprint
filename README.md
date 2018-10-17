@@ -1,4 +1,7 @@
-# Device Fingerprint - http://noc.to
+# Device Fingerprint - Former website
+
+I'm archiving this project.  It was cool when it first came out, but I didn't have time
+to maintain and update it.
 
 ### <i>Website to view the fingerprint that your browser exposes to third parties.</i>
 
